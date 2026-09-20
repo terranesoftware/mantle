@@ -3,7 +3,7 @@ use framboid::account::dossier::event::Event;
 use sqlx::{Error, PgPool, query_as};
 use time::UtcOffset;
 
-use crate::store::varve::dossier::events::EventRow;
+use crate::store::varve::dossier::event::EventRow;
 
 impl EventRow {
     pub async fn insert(

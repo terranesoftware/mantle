@@ -1,4 +1,4 @@
-pub mod events;
+pub mod event;
 pub mod queries;
 
 use sqlx::prelude::FromRow;

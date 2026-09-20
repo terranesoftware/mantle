@@ -3,7 +3,7 @@ use framboid::{addressing::Action, keys::Key};
 use sqlx::{Error, PgPool, query_as};
 use time::UtcOffset;
 
-use crate::store::varve::dossier::events::action::ActionRow;
+use crate::store::varve::dossier::event::action::ActionRow;
 
 impl ActionRow {
     pub async fn insert(
