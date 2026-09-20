@@ -1,4 +1,4 @@
-CREATE TABLE addresses (
+CREATE TABLE destination.addresses (
     id BIGSERIAL PRIMARY KEY,
     destination BIGINT NOT NULL,
 

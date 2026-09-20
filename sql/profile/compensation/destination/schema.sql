@@ -1,3 +1,5 @@
+CREATE SCHEMA destination;
+
 CREATE TABLE destinations (
     id BIGSERIAL PRIMARY KEY,
     compensation BIGINT NOT NULL,

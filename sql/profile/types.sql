@@ -4,3 +4,8 @@ CREATE TYPE location AS (
     county TEXT,
     state TEXT
 );
+
+CREATE TYPE period AS (
+    start DATE NOT NULL,
+    end DATE
+);
