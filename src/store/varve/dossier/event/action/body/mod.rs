@@ -9,7 +9,7 @@ use crate::store::varve::dossier::event::action::body::kind::Body;
 #[derive(FromRow)]
 pub struct BodyRow {
     id: i64,
-    body: i64,
+    action: i64,
 
     kind: Body
 }
@@ -21,8 +21,8 @@ impl BodyRow {
     }
 
     /// Returns a copy of the contained foreign key.
-    pub fn body(&self) -> i64 {
-        self.body
+    pub fn action(&self) -> i64 {
+        self.action
     }
 
     /// Returns a copy of the contained `Body`.
