@@ -1,0 +1,6 @@
+CREATE TABLE varves (
+    id BIGSERIAL PRIMARY KEY,
+
+    account TEXT NOT NULL,
+    from TIMESTAMPTZ NOT NULL
+);
