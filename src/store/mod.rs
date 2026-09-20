@@ -1,3 +1,5 @@
+pub mod varve;
+
 use sqlx::{Error, PgPool, raw_sql};
 
 pub async fn initialize(pool: &PgPool) -> Result<(), Error> {
