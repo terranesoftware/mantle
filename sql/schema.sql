@@ -16,7 +16,7 @@ CREATE TABLE dossiers (
     position BIGINT NOT NULL,
     to TIMESTAMPTZ NOT NULL,
 
-    FOREIGN KEY (varve) REFERENCES varves (id)
+    FOREIGN KEY (varve) REFERENCES varves (id) ON DELETE CASCADE
 );
 
 -- Events
@@ -30,7 +30,7 @@ CREATE TABLE events (
     position BIGINT NOT NULL,
     to TIMESTAMPTZ NOT NULL,
 
-    FOREIGN KEY (dossier) REFERENCES dossiers (id)
+    FOREIGN KEY (dossier) REFERENCES dossiers (id) ON DELETE CASCADE
 );
 
 -- Actions
@@ -45,7 +45,7 @@ CREATE TABLE actions (
     source TEXT NOT NULL,
     time TIMESTAMPTZ NOT NULL,
 
-    FOREIGN KEY (event) REFERENCES events (id)
+    FOREIGN KEY (event) REFERENCES events (id) ON DELETE CASCADE
 );
 
 -- Bodies
@@ -66,7 +66,7 @@ CREATE TABLE bodies (
 
     kind BODY_KIND NOT NULL,
 
-    FOREIGN KEY (action) REFERENCES actions (id)
+    FOREIGN KEY (action) REFERENCES actions (id) ON DELETE CASCADE
 );
 
 -- Bools
@@ -76,7 +76,7 @@ CREATE TABLE bools (
 
     bool BOOLEAN NOT NULL,
 
-    FOREIGN KEY (body) REFERENCES bodies (id)
+    FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Handles
@@ -86,7 +86,7 @@ CREATE TABLE handles (
 
     handle TEXT NOT NULL,
 
-    FOREIGN KEY (body) REFERENCES bodies (id)
+    FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Integers
@@ -96,7 +96,7 @@ CREATE TABLE integers (
 
     integer BIGINT NOT NULL,
 
-    FOREIGN KEY (body) REFERENCES bodies (id)
+    FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Lists
@@ -106,7 +106,7 @@ CREATE TABLE lists (
 
     contains BIGINT[] NOT NULL,
 
-    FOREIGN KEY (body) REFERENCES bodies (id)
+    FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Maps
@@ -115,7 +115,7 @@ CREATE TABLE maps (
     id BIGSERIAL PRIMARY KEY,
     body BIGINT NOT NULL,
 
-    FOREIGN KEY (body) REFERENCES bodies (id)
+    FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Entries
@@ -127,7 +127,7 @@ CREATE TABLE entries (
     name TEXT NOT NULL,
     position BIGINT NOT NULL,
 
-    FOREIGN KEY (map) REFERENCES maps (id)
+    FOREIGN KEY (map) REFERENCES maps (id) ON DELETE CASCADE
 );
 
 -- Texts
@@ -137,7 +137,7 @@ CREATE TABLE texts (
 
     text TEXT NOT NULL,
 
-    FOREIGN KEY (body) REFERENCES bodies (id)
+    FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Profiles
@@ -159,7 +159,7 @@ CREATE TABLE profiles (
     id BIGSERIAL PRIMARY KEY,
     varve BIGINT NOT NULL,
 
-    FOREIGN KEY (varve) REFERENCES varves (id)
+    FOREIGN KEY (varve) REFERENCES varves (id) ON DELETE CASCADE
 );
 
 -- Authorizations
@@ -168,7 +168,7 @@ CREATE TABLE authorizations (
     id BIGSERIAL PRIMARY KEY,
     profile BIGINT NOT NULL,
 
-    FOREIGN KEY (profile) REFERENCES profiles (id)
+    FOREIGN KEY (profile) REFERENCES profiles (id) ON DELETE CASCADE
 );
 
 -- Documents
@@ -181,7 +181,7 @@ CREATE TABLE documents (
     number TEXT,
     validity DATERANGE,
 
-    FOREIGN KEY (authorization) REFERENCES authorizations (id)
+    FOREIGN KEY (authorization) REFERENCES authorizations (id) ON DELETE CASCADE
 );
 
 -- Issuers
@@ -192,7 +192,7 @@ CREATE TABLE issuers (
     name TEXT NOT NULL,
     jurisdiction LOCATION NOT NULL,
 
-    FOREIGN KEY (document) REFERENCES documents (id)
+    FOREIGN KEY (document) REFERENCES documents (id) ON DELETE CASCADE
 );
 
 -- Compensations
@@ -201,7 +201,7 @@ CREATE TABLE compensations (
     id BIGSERIAL PRIMARY KEY,
     profile BIGINT NOT NULL,
 
-    FOREIGN KEY (profile) REFERENCES profiles (id)
+    FOREIGN KEY (profile) REFERENCES profiles (id) ON DELETE CASCADE
 );
 
 -- Destinations
@@ -221,7 +221,7 @@ CREATE TABLE destinations (
 
     kind DESTINATION_KIND NOT NULL,
 
-    FOREIGN KEY (compensation) REFERENCES compensations (id)
+    FOREIGN KEY (compensation) REFERENCES compensations (id) ON DELETE CASCADE
 );
 
 -- Addresses
@@ -240,7 +240,7 @@ CREATE TABLE destination.addresses (
 
     kind ADDRESS_KIND NOT NULL,
     
-    FOREIGN KEY (destination) REFERENCES destinations (id)
+    FOREIGN KEY (destination) REFERENCES destinations (id) ON DELETE CASCADE
 );
 
 -- ACHs
@@ -259,7 +259,7 @@ CREATE TABLE achs (
     kind ACCOUNT_KIND NOT NULL,
     routing TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id)
+    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
 );
 
 -- IBANs
@@ -269,7 +269,7 @@ CREATE TABLE ibans (
 
     iban TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id)
+    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
 );
 
 -- PIXs
@@ -279,7 +279,7 @@ CREATE TABLE pixs (
 
     identifier TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id)
+    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
 );
 
 -- UPIs
@@ -289,7 +289,7 @@ CREATE TABLE upis (
 
     vpa TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id)
+    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
 );
 
 -- Registrations
@@ -301,7 +301,7 @@ CREATE TABLE registrations (
     identifier TEXT NOT NULL,
     jurisdiction LOCATION NOT NULL,
 
-    FOREIGN KEY (compensation) REFERENCES compensations (id)
+    FOREIGN KEY (compensation) REFERENCES compensations (id) ON DELETE CASCADE
 );
 
 -- Credentials
@@ -325,7 +325,7 @@ CREATE TABLE credentials (
 
     kind CREDENTIAL_KIND NOT NULL,
 
-    FOREIGN KEY (profile) REFERENCES profiles (id)
+    FOREIGN KEY (profile) REFERENCES profiles (id) ON DELETE CASCADE
 );
 
 -- Educations
@@ -339,7 +339,7 @@ CREATE TABLE educations (
     school TEXT NOT NULL,
     status STATUS NOT NULL,
 
-    FOREIGN KEY (credential) REFERENCES credentials (id)
+    FOREIGN KEY (credential) REFERENCES credentials (id) ON DELETE CASCADE
 );
 
 -- Engagements
@@ -370,7 +370,7 @@ CREATE TABLE engagements (
     period PERIOD NOT NULL,
     title TEXT NOT NULL,
 
-    FOREIGN KEY (profile) REFERENCES profiles (id)
+    FOREIGN KEY (profile) REFERENCES profiles (id) ON DELETE CASCADE
 );
 
 -- Identities
@@ -386,7 +386,7 @@ CREATE TABLE identities (
     emails TEXT[] NOT NULL,
     phones TEXT[] NOT NULL,
 
-    FOREIGN KEY (profile) REFERENCES profiles (id)
+    FOREIGN KEY (profile) REFERENCES profiles (id) ON DELETE CASCADE
 );
 
 -- Addresses
@@ -398,7 +398,7 @@ CREATE TABLE identity.addresses (
     location LOCATION NOT NULL,
     postcode TEXT NOT NULL,
     
-    FOREIGN KEY (identity) REFERENCES identities (id)
+    FOREIGN KEY (identity) REFERENCES identities (id) ON DELETE CASCADE
 );
 
 -- Names
@@ -416,7 +416,7 @@ CREATE TABLE names (
     latin IDENTIFIERS,
     native IDENTIFIERS,
 
-    FOREIGN KEY (identity) REFERENCES identities (id)
+    FOREIGN KEY (identity) REFERENCES identities (id) ON DELETE CASCADE
 );
 
 -- Usage
@@ -434,7 +434,7 @@ CREATE TABLE usages (
 
     kind USAGE_KIND NOT NULL,
 
-    FOREIGN KEY (name) REFERENCES names (id)
+    FOREIGN KEY (name) REFERENCES names (id) ON DELETE CASCADE
 );
 
 -- Priors
@@ -444,5 +444,5 @@ CREATE TABLE priors (
 
     period PERIOD NOT NULL,
 
-    FOREIGN KEY (usage) REFERENCES usages (id)
+    FOREIGN KEY (usage) REFERENCES usages (id) ON DELETE CASCADE
 );
