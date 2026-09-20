@@ -1,3 +1,4 @@
+pub mod action;
 pub mod queries;
 
 use sqlx::prelude::FromRow;
