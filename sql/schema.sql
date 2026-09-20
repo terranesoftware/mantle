@@ -51,7 +51,7 @@ CREATE TABLE actions (
 -- Bodies
 -- Types
 CREATE TYPE body_kind AS ENUM (
-    'bool',
+    'boolean',
     'handle',
     'integer',
     'list',
@@ -69,12 +69,12 @@ CREATE TABLE bodies (
     FOREIGN KEY (action) REFERENCES actions (id) ON DELETE CASCADE
 );
 
--- Bools
-CREATE TABLE bools (
+-- Booleans
+CREATE TABLE booleans (
     id BIGSERIAL PRIMARY KEY,
     body BIGINT NOT NULL,
 
-    bool BOOLEAN NOT NULL,
+    boolean BOOLEAN NOT NULL,
 
     FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
