@@ -1,3 +1,4 @@
+pub mod dossier;
 pub mod queries;
 
 use sqlx::prelude::FromRow;
@@ -7,12 +8,13 @@ use time::OffsetDateTime;
 #[derive(FromRow)]
 pub struct VarveRow {
     id: i64,
+    
     account: String,
     from: OffsetDateTime
 }
 
 impl VarveRow {
-    /// Returns a copy of the contained id.
+    /// Returns a copy of the contained primary key.
     pub fn id(&self) -> i64 {
         self.id
     }
@@ -22,7 +24,7 @@ impl VarveRow {
         &self.account
     }
 
-    /// Returns a copy of the contained creation time.
+    /// Returns a copy of the contained from datetime.
     pub fn from(&self) -> OffsetDateTime {
         self.from
     }
