@@ -5,6 +5,7 @@ pub mod kind;
 pub mod list;
 pub mod map;
 pub mod queries;
+pub mod text;
 
 use sqlx::prelude::FromRow;
 
