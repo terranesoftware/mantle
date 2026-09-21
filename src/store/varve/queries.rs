@@ -5,49 +5,37 @@ use time::UtcOffset;
 use crate::store::varve::VarveRow;
 
 impl VarveRow {
-    pub async fn insert(
-        pool: &PgPool,
-        varve: &Varve
-    ) -> Result<Self, Error> {
-        let row: VarveRow = query_as("INSERT INTO varves VALUES ($1, $2) RETURNING *")
-            .bind(varve.account().key())
-            .bind(varve.from().to_offset(UtcOffset::UTC))
-            .fetch_one(pool)
-            .await?;
+    insert! {
+        parameters = [varve: &Varve];
 
-        // Recurse here
+        row = VarveRow;
 
-        Ok(row)
+        table = "varves";
+
+        columns = [1, 2];
+
+        binds = [
+            varve.account().key(),
+            varve.from().to_offset(UtcOffset::UTC)
+        ];
     }
+    
+    delete!("varves");
+    
+    select!("varves");
 
-    pub async fn delete(
-        pool: &PgPool,
-        id: i64
-    ) -> Result<Self, Error> {
-        query_as("DELETE FROM varves WHERE id = $1 RETURNING *")
-            .bind(id)
-            .fetch_one(pool)
-            .await
-    }
+    update! {
+        parameters = [varve: &Varve];
 
-    pub async fn select(
-        pool: &PgPool,
-        id: i64
-    ) -> Result<Self, Error> {
-        query_as("SELECT * FROM varves WHERE id = $1")
-            .bind(id)
-            .fetch_one(pool)
-            .await
-    }
+        table = "varves";
 
-    pub async fn update(
-        pool: &PgPool,
-        varve: &Varve
-    ) -> Result<Self, Error> {
-        query_as("UPDATE varves SET (account, from) = ($1, $2) WHERE id = $3 RETURNING *")
-            .bind(varve.account().key())
-            .bind(varve.from().to_offset(UtcOffset::UTC))
-            .fetch_one(pool)
-            .await
+        names = ["account", "from"];
+
+        numbers = [2, 3];
+
+        binds = [
+            varve.account().key(),
+            varve.from().to_offset(UtcOffset::UTC)
+        ];
     }
 }
