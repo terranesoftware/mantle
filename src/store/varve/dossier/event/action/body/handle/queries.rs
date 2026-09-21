@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::handle::HandleRow;
 
 impl HandleRow {
     insert! {
-        parameters = [body: i64, handle: Body];
+        parameters = [body: i64, handle: &Body];
 
         setup = {
             // Decide how to error here later

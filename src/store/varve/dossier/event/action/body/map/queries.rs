@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::map::MapRow;
 
 impl MapRow {
     insert! {
-        parameters = [body: i64, map: Body];
+        parameters = [body: i64, map: &Body];
 
         setup = {
             let map = match map.kind() {

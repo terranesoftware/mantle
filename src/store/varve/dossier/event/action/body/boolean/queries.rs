@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::boolean::BooleanRow;
 
 impl BooleanRow {
     insert! {
-        parameters = [body: i64, boolean: Body];
+        parameters = [body: i64, boolean: &Body];
 
         setup = {
             // Decide how to error here later

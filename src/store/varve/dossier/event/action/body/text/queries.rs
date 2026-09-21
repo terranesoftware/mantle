@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::text::TextRow;
 
 impl TextRow {
     insert! {
-        parameters = [body: i64, text: Body];
+        parameters = [body: i64, text: &Body];
 
         setup = {
             let text = match text.kind() {

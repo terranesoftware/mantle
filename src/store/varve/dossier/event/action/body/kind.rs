@@ -15,8 +15,8 @@ pub enum BodyKind {
     Text
 }
 
-impl From<framboid::addressing::body::Body> for Body {
-    fn from(value: framboid::addressing::body::Body) -> Self {
+impl From<&framboid::addressing::body::Body> for Body {
+    fn from(value: &framboid::addressing::body::Body) -> Self {
         match value.kind() {
             framboid::addressing::body::BodyKind::Boolean(_) => Body(BodyKind::Boolean),
             framboid::addressing::body::BodyKind::Handle(_) => Body(BodyKind::Handle),

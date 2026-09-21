@@ -4,7 +4,7 @@ use crate::store::varve::dossier::event::action::body::{BodyRow, kind::Body};
 
 impl BodyRow {
     insert! {
-        parameters = [action: i64, body: framboid::addressing::body::Body];
+        parameters = [action: i64, body: &framboid::addressing::body::Body];
 
         row = BodyRow;
 
@@ -23,7 +23,7 @@ impl BodyRow {
     select!("bodies");
 
     update! {
-        parameters = [action: Option<i64>, body: framboid::addressing::body::Body];
+        parameters = [action: Option<i64>, body: &framboid::addressing::body::Body];
 
         table = "bodies";
 

@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::integer::IntegerRow;
 
 impl IntegerRow {
     insert! {
-        parameters = [body: i64, integer: Body];
+        parameters = [body: i64, integer: &Body];
 
         setup = {
             let integer = match integer.kind() {

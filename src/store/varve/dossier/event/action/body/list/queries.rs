@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::list::ListRow;
 
 impl ListRow {
     insert! {
-        parameters = [body: i64, list: Body];
+        parameters = [body: i64, list: &Body];
 
         setup = {
             let list = match list.kind() {

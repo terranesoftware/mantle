@@ -1,4 +1,5 @@
 pub mod dossier;
+pub mod profile;
 pub mod queries;
 
 use sqlx::prelude::FromRow;
