@@ -18,6 +18,9 @@ impl VarveRow {
             varve.account().key(),
             varve.from().to_offset(UtcOffset::UTC)
         ];
+
+        // Complete this
+        recurse = {};
     }
     
     delete!("varves");
