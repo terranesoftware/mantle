@@ -24,7 +24,7 @@ macro_rules! insert {
         ) -> Result<Self, Error> {
             $($($setup)*)?
             
-            let row: $row = query_as(concat!("INSERT INTO ", $table, " VALUES ($", $first, $(",$", $num),* , ") RETURNING *"))
+            let row: $row = query_as(concat!("INSERT INTO ", $table, " VALUES ($", $first $(, ",$", $num)*, ") RETURNING *"))
                 $(.bind($bind))*
                 .fetch_one(pool)
                 .await?;
@@ -85,7 +85,7 @@ macro_rules! update {
             id: i64,
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
-            query_as(concat!("UPDATE ", $table, " SET (", $first_name, $(",", $name),*, ") = ($", $first_num, $(",$", $num),*, ") WHERE id = $1 RETURNING *"))
+            query_as(concat!("UPDATE ", $table, " SET (", $first_name $(, ",", $name)*, ") = ($", $first_num $(, ",$", $num)*, ") WHERE id = $1 RETURNING *"))
                 .bind(id)
                 $(.bind($bind))*
                 .fetch_one(pool)
