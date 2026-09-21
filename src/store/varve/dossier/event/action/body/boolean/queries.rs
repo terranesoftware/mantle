@@ -21,10 +21,7 @@ impl BooleanRow {
 
         columns = [1, 2];
 
-        binds = [
-            body,
-            boolean
-        ];
+        binds = [body, boolean];
     }
 
     delete!("booleans");
@@ -40,9 +37,6 @@ impl BooleanRow {
 
         numbers = [2, 3];
 
-        binds = [
-            body,
-            boolean
-        ];
+        binds = [body, boolean];
     }
 }

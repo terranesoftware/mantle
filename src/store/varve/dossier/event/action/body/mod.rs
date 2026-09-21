@@ -1,4 +1,5 @@
 pub mod boolean;
+pub mod handle;
 pub mod kind;
 pub mod queries;
 
