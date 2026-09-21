@@ -3,6 +3,7 @@ pub mod handle;
 pub mod integer;
 pub mod kind;
 pub mod list;
+pub mod map;
 pub mod queries;
 
 use sqlx::prelude::FromRow;
