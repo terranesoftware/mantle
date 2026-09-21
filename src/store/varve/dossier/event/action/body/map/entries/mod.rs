@@ -1,3 +1,5 @@
+pub mod queries;
+
 use sqlx::prelude::FromRow;
 
 /// The database representation of the entries of a `BodyKind::Map`.
