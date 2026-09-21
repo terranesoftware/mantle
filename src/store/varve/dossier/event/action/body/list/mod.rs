@@ -11,13 +11,5 @@ pub struct ListRow {
 }
 
 impl ListRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    /// Returns a copy of the contained foreign key.
-    pub fn body(&self) -> i64 {
-        self.body
-    }
+    keys!(body);
 }

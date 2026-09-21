@@ -14,10 +14,7 @@ pub struct VarveRow {
 }
 
 impl VarveRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
+    keys!();
 
     /// Returns a copy of the contained account key.
     pub fn account(&self) -> &str {

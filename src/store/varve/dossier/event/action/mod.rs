@@ -18,15 +18,7 @@ pub struct ActionRow {
 }
 
 impl ActionRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    /// Returns a copy of the contained foreign key.
-    pub fn event(&self) -> i64 {
-        self.event
-    }
+    keys!(event);
 
     /// Returns a reference to the contained hash.
     pub fn hash(&self) -> &[u8] {

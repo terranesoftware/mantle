@@ -13,15 +13,7 @@ pub struct EntryRow {
 }
 
 impl EntryRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    /// Returns a copy of the contained list foreign key.
-    pub fn list(&self) -> i64 {
-        self.list
-    }
+    keys!(list);
 
     /// Returns a copy of the contained body foreign key.
     pub fn contains(&self) -> i64 {

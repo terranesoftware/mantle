@@ -1,3 +1,20 @@
+macro_rules! keys {
+    ($($name:ident)?) => {
+        /// Returns a copy of the contained primary key.
+        pub fn id(&self) -> i64 {
+            self.id
+        }
+
+        $(
+            /// Returns a copy of the contained foreign key.
+            pub fn $name(&self) -> i64 {
+                self.$name
+            }
+        )?
+        
+    };
+}
+
 macro_rules! insert {
     (
         parameters = [

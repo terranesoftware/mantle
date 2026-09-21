@@ -17,15 +17,7 @@ pub struct EventRow {
 }
 
 impl EventRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    /// Returns a copy of the contained foreign key.
-    pub fn dossier(&self) -> i64 {
-        self.dossier
-    }
+    keys!(dossier);
 
     /// Returns a copy of the contained from datetime.
     pub fn from(&self) -> OffsetDateTime {

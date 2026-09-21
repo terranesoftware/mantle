@@ -17,15 +17,7 @@ pub struct DossierRow {
 }
 
 impl DossierRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    /// Returns a copy of the contained foreign key.
-    pub fn varve(&self) -> i64 {
-        self.varve
-    }
+    keys!(varve);
 
     /// Returns a copy of the contained from datetime.
     pub fn from(&self) -> OffsetDateTime {

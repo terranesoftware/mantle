@@ -19,15 +19,7 @@ pub struct BodyRow {
 }
 
 impl BodyRow {
-    /// Returns a copy of the contained primary key.
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    /// Returns a copy of the contained foreign key.
-    pub fn action(&self) -> i64 {
-        self.action
-    }
+    keys!(action);
 
     /// Returns a copy of the contained `Body`.
     pub fn kind(&self) -> Body {
