@@ -15,7 +15,7 @@ pub struct EntryRow {
 impl EntryRow {
     keys!(list);
 
-    /// Returns a copy of the contained body foreign key.
+    /// Returns a copy of the contained `bodies` foreign key.
     pub fn contains(&self) -> i64 {
         self.contains
     }
