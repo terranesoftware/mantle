@@ -4,6 +4,8 @@ macro_rules! insert {
             $($param_ident:ident: $param_ty:ty),*
         ];
 
+        $(setup = {$($setup:stmt;)*};)?
+
         row = $row:ty;
 
         table = $table:literal;
@@ -20,6 +22,8 @@ macro_rules! insert {
             pool: &PgPool,
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
+            $($($setup)*)?
+            
             let row: $row = query_as(concat!("INSERT INTO ", $table, " VALUES ($", $first, $(",$", $num),* , ") RETURNING *"))
                 $(.bind($bind))*
                 .fetch_one(pool)
