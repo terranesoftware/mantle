@@ -12,10 +12,7 @@ impl BodyRow {
 
         columns = [1, 2];
 
-        binds = [
-            action,
-            Body::from(body)
-        ];
+        binds = [action, Body::from(body)];
 
         // Complete this
         recurse = {};
@@ -34,9 +31,6 @@ impl BodyRow {
 
         numbers = [2, 3];
 
-        binds = [
-            action,
-            Body::from(body)
-        ];
+        binds = [action, Body::from(body)];
     }
 }
