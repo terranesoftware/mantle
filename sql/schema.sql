@@ -100,16 +100,33 @@ CREATE TABLE integers (
 );
 
 -- Lists
+-- Schema
+CREATE SCHEMA list;
+
+-- Table
 CREATE TABLE lists (
     id BIGSERIAL PRIMARY KEY,
     body BIGINT NOT NULL,
 
-    contains BIGINT[] NOT NULL,
-
     FOREIGN KEY (body) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
+-- Entries
+CREATE TABLE list.entries (
+    id BIGSERIAL PRIMARY KEY,
+    list BIGINT NOT NULL,
+
+    contains BIGINT NOT NULL,
+    position BIGINT NOT NULL,
+
+    FOREIGN KEY (list) REFERENCES lists (id) ON DELETE CASCADE,
+    FOREIGN KEY (contains) REFERENCES bodies (id) ON DELETE CASCADE
+);
+
 -- Maps
+-- Schema
+CREATE SCHEMA map;
+
 -- Table
 CREATE TABLE maps (
     id BIGSERIAL PRIMARY KEY,
@@ -119,7 +136,7 @@ CREATE TABLE maps (
 );
 
 -- Entries
-CREATE TABLE entries (
+CREATE TABLE map.entries (
     id BIGSERIAL PRIMARY KEY,
     map BIGINT NOT NULL,
 
@@ -127,7 +144,8 @@ CREATE TABLE entries (
     name TEXT NOT NULL,
     position BIGINT NOT NULL,
 
-    FOREIGN KEY (map) REFERENCES maps (id) ON DELETE CASCADE
+    FOREIGN KEY (map) REFERENCES maps (id) ON DELETE CASCADE,
+    FOREIGN KEY (contains) REFERENCES bodies (id) ON DELETE CASCADE
 );
 
 -- Texts
