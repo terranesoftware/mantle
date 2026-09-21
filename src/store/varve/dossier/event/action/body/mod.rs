@@ -1,3 +1,4 @@
+pub mod boolean;
 pub mod kind;
 pub mod queries;
 
