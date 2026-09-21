@@ -11,7 +11,7 @@ impl EntryRow {
 
         columns = [1, 2, 3];
 
-        binds = [list, entry.0 as i64, entry.1];
+        binds = [list, entry.1, entry.0 as i64];
     }
 
     delete!("list.entries");
@@ -27,6 +27,6 @@ impl EntryRow {
 
         numbers = [2, 3, 4];
 
-        binds = [list, entry.0 as i64, entry.1];
+        binds = [list, entry.1, entry.0 as i64];
     }
 }
