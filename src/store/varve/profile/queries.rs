@@ -5,7 +5,7 @@ impl ProfileRow {
     queries! {
         foreign = varve;
 
-        table = "varves";
+        table = "profiles";
 
         names = [];
 

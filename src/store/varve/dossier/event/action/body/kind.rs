@@ -20,7 +20,7 @@ impl From<&framboid::addressing::body::Body> for Body {
         match value.kind() {
             framboid::addressing::body::BodyKind::Boolean(_) => Body(BodyKind::Boolean),
             framboid::addressing::body::BodyKind::Handle(_) => Body(BodyKind::Handle),
-            framboid::addressing::body::BodyKind::Integer(_) => Body(BodyKind::Handle),
+            framboid::addressing::body::BodyKind::Integer(_) => Body(BodyKind::Integer),
             framboid::addressing::body::BodyKind::List(_) => Body(BodyKind::List),
             framboid::addressing::body::BodyKind::Map(_) => Body(BodyKind::Map),
             framboid::addressing::body::BodyKind::Text(_) => Body(BodyKind::Text)
