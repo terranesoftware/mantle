@@ -7,14 +7,13 @@ impl TextRow {
     queries! {
         foreign = body;
         
-        parameters = [text: &Body];
+        param = text: &Body;
 
         table = "texts";
         
-        names = ["body", "text"];
+        names = ["text"];
 
         binds = [
-            body,
             match text.kind() {
                 BodyKind::Text(text) => text,
                 _ => unreachable!()

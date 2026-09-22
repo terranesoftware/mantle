@@ -21,7 +21,7 @@ macro_rules! queries {
 
         $(foreign = $foreign_ident:ident;)?
 
-        parameters = [$($param_ident:ident: $param_ty:ty),*];
+        $(param = $param_ident:ident: $param_ty:ty;)?
         
         table = $table:literal;
 
@@ -33,7 +33,7 @@ macro_rules! queries {
         pub async fn insert(
             pool: &PgPool,
             $($foreign_ident: i64,)?
-            $($param_ident: $param_ty),*
+            $($param_ident: $param_ty)?
         ) -> Result<Self, Error> {
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("INSERT INTO ", $table, " VALUES (DEFAULT, "));
             let mut binds = builder.separated(", ");
@@ -91,11 +91,11 @@ macro_rules! queries {
         
         $(foreign = $foreign_ident:ident;)?
 
-        parameters = [$($param_ident:ident: $param_ty:ty),*];
+        $(param = $param_ident:ident: $param_ty:ty;)?
         
         table = $table:literal;
 
-        names = [$first_name:literal $(, $name:literal)*];
+        names = [$($name:literal),*];
 
         binds = [$($bind:expr),*];
     ) =>
@@ -104,9 +104,16 @@ macro_rules! queries {
             pool: &PgPool,
             id: i64,
             $($foreign_ident: Option<i64>,)?
-            $($param_ident: $param_ty),*
+            $($param_ident: $param_ty)?
         ) -> Result<Self, Error> {
-            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("UPDATE ", $table, " SET (", $first_name $(, ",", $name)*, ") = ("));
+            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("UPDATE ", $table, " SET (" ));
+            
+            let mut names = builder.separated(", ");
+            $(names.push(stringify!($foreign_ident));)?
+            $(names.push($name);)*
+            
+            builder.push(") = (");
+            
             let mut binds = builder.separated(", ");
             $(
                 binds.push_unseparated("COALESCE (");
@@ -128,11 +135,11 @@ macro_rules! queries {
     (
         $(foreign = $foreign_ident:ident;)?
         
-        parameters = [$($param_ident:ident: $param_ty:ty),*];
+        $(param = $param_ident:ident: $param_ty:ty;)?
         
         table = $table:literal;
 
-        names = [$first_name:literal $(, $name:literal)*];
+        names = [$($name:literal),*];
 
         binds = [$($bind:expr),*];
 
@@ -142,10 +149,9 @@ macro_rules! queries {
         queries! {
             @insert
     
-            
             $(foreign = $foreign_ident;)?
     
-            parameters = [$($param_ident: $param_ty),*];
+            $(param = $param_ident: $param_ty;)?
             
             table = $table;
     
@@ -171,11 +177,11 @@ macro_rules! queries {
                     
             $(foreign = $foreign_ident;)?
     
-            parameters = [$($param_ident: $param_ty),*];
+            $(param = $param_ident: $param_ty;)?
             
             table = $table;
     
-            names = [$first_name $(, $name)*];
+            names = [$($name),*];
     
             binds = [$($bind),*];
         }

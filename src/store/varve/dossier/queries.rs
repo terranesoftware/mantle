@@ -9,14 +9,13 @@ impl DossierRow {
     queries! {
         foreign = varve;
         
-        parameters = [dossier: (usize, Hash, &Dossier)];
+        param = dossier: (usize, Hash, &Dossier);
         
         table = "dossiers";
         
-        names = ["varve", "from", "hash", "position", "to"];
+        names = ["from", "hash", "position", "to"];
 
         binds = [
-            varve,
             dossier.2.from().to_offset(UtcOffset::UTC),
             dossier.1.as_bytes(),
             dossier.0 as i64,

@@ -5,11 +5,9 @@ impl ProfileRow {
     queries! {
         foreign = varve;
 
-        parameters = [];
-
         table = "varves";
 
-        names = ["varve"];
+        names = [];
 
         binds = [];
 

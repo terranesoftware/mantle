@@ -9,14 +9,13 @@ impl ActionRow {
     queries! {
         foreign = event;
         
-        parameters = [action: (usize, Hash, &Action)];
+        param = action: (usize, Hash, &Action);
         
         table = "actions";
         
-        names = ["event", "hash", "name", "position", "source", "time"];
+        names = ["hash", "name", "position", "source", "time"];
         
         binds = [
-            event,
             action.1.as_bytes(),
             action.2.name(),
             action.0 as i64,

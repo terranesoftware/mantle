@@ -9,14 +9,13 @@ impl EventRow {
     queries! {
         foreign = dossier;
         
-        parameters = [event: (usize, Hash, &Event)];
+        param = event: (usize, Hash, &Event);
         
         table = "events";
 
-        names = ["dossier", "from", "hash", "position", "to"];
+        names = ["from", "hash", "position", "to"];
         
         binds = [
-            dossier,
             event.2.from().to_offset(UtcOffset::UTC),
             event.1.as_bytes(),
             event.0 as i64,

@@ -6,7 +6,7 @@ use crate::store::varve::VarveRow;
 
 impl VarveRow {
     queries! {
-        parameters = [varve: &Varve];
+        param = varve: &Varve;
 
         table = "varves";
 

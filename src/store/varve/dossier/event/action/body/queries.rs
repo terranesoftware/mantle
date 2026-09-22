@@ -6,13 +6,13 @@ impl BodyRow {
     queries! {
         foreign = action;
         
-        parameters = [body: &framboid::addressing::body::Body];
+        param = body: &framboid::addressing::body::Body;
         
         table = "bodies";
         
-        names = ["action", "kind"];
+        names = ["kind"];
         
-        binds = [action, Body::from(body)];
+        binds = [Body::from(body)];
 
         // Complete this
         recurse = {};
