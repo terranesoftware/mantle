@@ -15,46 +15,53 @@ macro_rules! keys {
     };
 }
 
-macro_rules! insert {
+macro_rules! queries {
     (
-        parameters = [
-            $($param_ident:ident: $param_ty:ty),*
-        ];
+        @insert
 
         $(setup = {$($setup:stmt;)*};)?
+        
+        $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
 
-        row = $row:ty;
-
+        parameters = [$($param_ident:ident: $param_ty:ty),*];
+        
         table = $table:literal;
 
-        columns = [$first:literal $(, $num:literal)*];
+        names = [$first_name:literal $(, $name:literal)*];
 
-        binds = [
-            $($bind:expr),*
-        ];
+        binds = [$($bind:expr),*];
 
         $(recurse = $recurse:block;)?
     ) => {
         pub async fn insert(
             pool: &PgPool,
+            $($foreign_ident: $foreign_ty,)?
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
             $($($setup)*)?
-            
-            let row: $row = query_as(concat!("INSERT INTO ", $table, " VALUES ($", $first $(, ",$", $num)*, ") RETURNING *"))
-                $(.bind($bind))*
+
+            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("INSERT INTO ", $table, " VALUES (DEFAULT, "));
+            let mut binds = builder.separated(", ");
+            $(binds.push_bind($foreign_bind);)?
+            $(binds.push_bind($bind);)*
+            builder.push(") RETURNING *");
+
+            let row: Self = builder
+                .build_query_as()
                 .fetch_one(pool)
                 .await?;
-
+            
             $($recurse)?
 
             Ok(row)
         }
     };
-}
 
-macro_rules! delete {
-    ($table:literal) => {
+    (
+        @delete
+        
+        table = $table:literal;
+    ) => {
         pub async fn delete(
             pool: &PgPool,
             id: i64
@@ -65,10 +72,12 @@ macro_rules! delete {
                 .await
         }
     };
-}
 
-macro_rules! select {
-    ($table:literal) => {
+    (
+        @select
+
+        table = $table:literal;
+    ) => {
         pub async fn select(
             pool: &PgPool,
             id: i64
@@ -79,34 +88,102 @@ macro_rules! select {
                 .await
         }
     };
-}
 
-macro_rules! update {
     (
-        parameters = [
-            $($param_ident:ident: $param_ty:ty),*
-        ];
+        @update
+        
+        $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
 
+        parameters = [$($param_ident:ident: $param_ty:ty),*];
+        
         table = $table:literal;
 
         names = [$first_name:literal $(, $name:literal)*];
 
-        numbers = [$first_num:literal $(, $num:literal)*];
-
-        binds = [
-            $($bind:expr),*
-        ];
+        binds = [$($bind:expr),*];
     ) => {
         pub async fn update(
             pool: &PgPool,
             id: i64,
+            $($foreign_ident: Option<$foreign_ty>,)?
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
-            query_as(concat!("UPDATE ", $table, " SET (", $first_name $(, ",", $name)*, ") = ($", $first_num $(, ",$", $num)*, ") WHERE id = $1 RETURNING *"))
-                .bind(id)
-                $(.bind($bind))*
+            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("UPDATE ", $table, " SET (", $first_name $(, ",", $name)*, ") = ("));
+            let mut binds = builder.separated(", ");
+            $(
+                binds.push_unseparated("COALESCE (");
+                binds.push_bind($foreign_bind);
+                binds.push(concat!($foreign_literal, ")"));
+            )?
+            $(binds.push_bind($bind);)*
+            builder.push(") WHERE id = ");
+            builder.push_bind(id);
+            builder.push(" RETURNING *");
+
+            builder
+                .build_query_as()
                 .fetch_one(pool)
                 .await
+        }
+    };
+    
+    (
+        $(setup = {$($setup:stmt;)*};)?
+
+        $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
+
+        parameters = [$($param_ident:ident: $param_ty:ty),*];
+        
+        table = $table:literal;
+
+        names = [$first_name:literal $(, $name:literal)*];
+
+        binds = [$($bind:expr),*];
+
+        $(recurse = $recurse:block;)?
+    ) => {
+        queries! {
+            @insert
+    
+            $(setup = {$($setup;)*};)?
+            
+            $(foreign = [$foreign_ident, $foreign_ty, $foreign_literal, $foreign_bind];)?
+    
+            parameters = [$($param_ident: $param_ty),*];
+            
+            table = $table;
+    
+            names = [$first_name$(, $name)*];
+    
+            binds = [$($bind),*];
+    
+            $(recurse = $recurse;)?
+        }
+
+        queries! {
+            @delete
+                    
+            table = $table;
+        }
+
+        queries! {
+            @select
+                                
+            table = $table;
+        }
+
+        queries! {
+            @update
+                    
+            $(foreign = [$foreign_ident, $foreign_ty, $foreign_literal, $foreign_bind];)?
+    
+            parameters = [$($param_ident: $param_ty),*];
+            
+            table = $table;
+    
+            names = [$first_name$(, $name)*];
+    
+            binds = [$($bind),*];
         }
     };
 }
