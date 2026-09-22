@@ -4,7 +4,7 @@ use crate::store::varve::dossier::event::action::body::{BodyRow, kind::Body};
 
 impl BodyRow {
     queries! {
-        foreign = [action, i64, "action", action];
+        foreign = action;
         
         parameters = [body: &framboid::addressing::body::Body];
         

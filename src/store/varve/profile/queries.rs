@@ -3,7 +3,7 @@ use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
 impl ProfileRow {
     queries! {
-        foreign = [varve, i64, "varve", varve];
+        foreign = varve;
 
         parameters = [];
 

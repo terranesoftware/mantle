@@ -7,7 +7,7 @@ use crate::store::varve::dossier::DossierRow;
 
 impl DossierRow {
     queries! {
-        foreign = [varve, i64, "varve", varve];
+        foreign = varve;
         
         parameters = [dossier: (usize, Hash, &Dossier)];
         

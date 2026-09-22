@@ -19,7 +19,7 @@ macro_rules! queries {
     (
         @insert
 
-        $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
+        $(foreign = $foreign_ident:ident;)?
 
         parameters = [$($param_ident:ident: $param_ty:ty),*];
         
@@ -32,12 +32,12 @@ macro_rules! queries {
     {
         pub async fn insert(
             pool: &PgPool,
-            $($foreign_ident: $foreign_ty,)?
+            $($foreign_ident: i64,)?
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("INSERT INTO ", $table, " VALUES (DEFAULT, "));
             let mut binds = builder.separated(", ");
-            $(binds.push_bind($foreign_bind);)?
+            $(binds.push_bind($foreign_ident);)?
             $(binds.push_bind($bind);)*
             builder.push(") RETURNING *");
 
@@ -89,7 +89,7 @@ macro_rules! queries {
     (
         @update
         
-        $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
+        $(foreign = $foreign_ident:ident;)?
 
         parameters = [$($param_ident:ident: $param_ty:ty),*];
         
@@ -103,15 +103,15 @@ macro_rules! queries {
         pub async fn update(
             pool: &PgPool,
             id: i64,
-            $($foreign_ident: Option<$foreign_ty>,)?
+            $($foreign_ident: Option<i64>,)?
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("UPDATE ", $table, " SET (", $first_name $(, ",", $name)*, ") = ("));
             let mut binds = builder.separated(", ");
             $(
                 binds.push_unseparated("COALESCE (");
-                binds.push_bind($foreign_bind);
-                binds.push(concat!($foreign_literal, ")"));
+                binds.push_bind($foreign_ident);
+                binds.push(concat!(stringify!($foreign_ident), ")"));
             )?
             $(binds.push_bind($bind);)*
             builder.push(") WHERE id = ");
@@ -126,7 +126,7 @@ macro_rules! queries {
     };
     
     (
-        $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
+        $(foreign = $foreign_ident:ident;)?
         
         parameters = [$($param_ident:ident: $param_ty:ty),*];
         
@@ -143,7 +143,7 @@ macro_rules! queries {
             @insert
     
             
-            $(foreign = [$foreign_ident, $foreign_ty, $foreign_literal, $foreign_bind];)?
+            $(foreign = $foreign_ident;)?
     
             parameters = [$($param_ident: $param_ty),*];
             
@@ -169,7 +169,7 @@ macro_rules! queries {
         queries! {
             @update
                     
-            $(foreign = [$foreign_ident, $foreign_ty, $foreign_literal, $foreign_bind];)?
+            $(foreign = $foreign_ident;)?
     
             parameters = [$($param_ident: $param_ty),*];
             

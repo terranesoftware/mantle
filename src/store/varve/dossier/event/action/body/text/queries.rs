@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::text::TextRow;
 
 impl TextRow {
     queries! {
-        foreign = [body, i64, "body", body];
+        foreign = body;
         
         parameters = [text: &Body];
 
