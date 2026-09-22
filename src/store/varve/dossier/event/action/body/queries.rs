@@ -1,36 +1,20 @@
-use sqlx::{Error, PgPool, query_as};
+use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
 use crate::store::varve::dossier::event::action::body::{BodyRow, kind::Body};
 
 impl BodyRow {
-    insert! {
-        parameters = [action: i64, body: &framboid::addressing::body::Body];
-
-        row = BodyRow;
-
+    queries! {
+        foreign = [action, i64, "action", action];
+        
+        parameters = [body: &framboid::addressing::body::Body];
+        
         table = "bodies";
-
-        columns = [1, 2];
-
+        
+        names = ["action", "kind"];
+        
         binds = [action, Body::from(body)];
 
         // Complete this
         recurse = {};
-    }
-
-    delete!("bodies");
-
-    select!("bodies");
-
-    update! {
-        parameters = [action: Option<i64>, body: &framboid::addressing::body::Body];
-
-        table = "bodies";
-
-        names = ["action", "kind"];
-
-        numbers = [2, 3];
-
-        binds = [action, Body::from(body)];
     }
 }

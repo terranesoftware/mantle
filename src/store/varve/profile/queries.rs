@@ -1,35 +1,19 @@
 use crate::store::varve::profile::ProfileRow;
-use sqlx::{Error, PgPool, query_as};
+use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
 impl ProfileRow {
-    insert! {
-        parameters = [varve: i64];
+    queries! {
+        foreign = [varve, i64, "varve", varve];
 
-        row = ProfileRow;
+        parameters = [];
 
-        table = "profiles";
-
-        columns = [1];
-
-        binds = [varve];
-
-        // Complete this
-        recurse = {};
-    }
-
-    delete!("profiles");
-
-    select!("profiles");
-
-    update! {
-        parameters = [varve: Option<i64>];
-
-        table = "profiles";
+        table = "varves";
 
         names = ["varve"];
 
-        numbers = [2];
+        binds = [];
 
-        binds = [varve];
+        // Recurse in later
+        recurse = {};
     }
 }

@@ -1,44 +1,17 @@
 use framboid::{account::Varve, keys::Key};
-use sqlx::{Error, PgPool, query_as};
+use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 use time::UtcOffset;
 
 use crate::store::varve::VarveRow;
 
 impl VarveRow {
-    insert! {
-        parameters = [varve: &Varve];
-
-        row = VarveRow;
-
-        table = "varves";
-
-        columns = [1, 2];
-
-        binds = [
-            varve.account().key(),
-            varve.from().to_offset(UtcOffset::UTC)
-        ];
-
-        // Complete this
-        recurse = {};
-    }
-    
-    delete!("varves");
-    
-    select!("varves");
-
-    update! {
+    queries! {
         parameters = [varve: &Varve];
 
         table = "varves";
 
         names = ["account", "from"];
 
-        numbers = [2, 3];
-
-        binds = [
-            varve.account().key(),
-            varve.from().to_offset(UtcOffset::UTC)
-        ];
+        binds = [varve.account().key(), varve.from().to_offset(UtcOffset::UTC)];
     }
 }

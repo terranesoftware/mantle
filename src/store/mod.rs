@@ -19,27 +19,22 @@ macro_rules! queries {
     (
         @insert
 
-        $(setup = {$($setup:stmt;)*};)?
-        
         $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
 
         parameters = [$($param_ident:ident: $param_ty:ty),*];
         
         table = $table:literal;
 
-        names = [$first_name:literal $(, $name:literal)*];
-
         binds = [$($bind:expr),*];
 
         $(recurse = $recurse:block;)?
-    ) => {
+    ) =>
+    {
         pub async fn insert(
             pool: &PgPool,
             $($foreign_ident: $foreign_ty,)?
             $($param_ident: $param_ty),*
         ) -> Result<Self, Error> {
-            $($($setup)*)?
-
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("INSERT INTO ", $table, " VALUES (DEFAULT, "));
             let mut binds = builder.separated(", ");
             $(binds.push_bind($foreign_bind);)?
@@ -61,7 +56,8 @@ macro_rules! queries {
         @delete
         
         table = $table:literal;
-    ) => {
+    ) =>
+    {
         pub async fn delete(
             pool: &PgPool,
             id: i64
@@ -77,7 +73,8 @@ macro_rules! queries {
         @select
 
         table = $table:literal;
-    ) => {
+    ) =>
+    {
         pub async fn select(
             pool: &PgPool,
             id: i64
@@ -101,7 +98,8 @@ macro_rules! queries {
         names = [$first_name:literal $(, $name:literal)*];
 
         binds = [$($bind:expr),*];
-    ) => {
+    ) =>
+    {
         pub async fn update(
             pool: &PgPool,
             id: i64,
@@ -128,10 +126,8 @@ macro_rules! queries {
     };
     
     (
-        $(setup = {$($setup:stmt;)*};)?
-
         $(foreign = [$foreign_ident:ident, $foreign_ty:ty, $foreign_literal:literal, $foreign_bind:expr];)?
-
+        
         parameters = [$($param_ident:ident: $param_ty:ty),*];
         
         table = $table:literal;
@@ -141,19 +137,17 @@ macro_rules! queries {
         binds = [$($bind:expr),*];
 
         $(recurse = $recurse:block;)?
-    ) => {
+    ) =>
+    {
         queries! {
             @insert
     
-            $(setup = {$($setup;)*};)?
             
             $(foreign = [$foreign_ident, $foreign_ty, $foreign_literal, $foreign_bind];)?
     
             parameters = [$($param_ident: $param_ty),*];
             
             table = $table;
-    
-            names = [$first_name$(, $name)*];
     
             binds = [$($bind),*];
     
@@ -181,7 +175,7 @@ macro_rules! queries {
             
             table = $table;
     
-            names = [$first_name$(, $name)*];
+            names = [$first_name $(, $name)*];
     
             binds = [$($bind),*];
         }
