@@ -1,5 +1,6 @@
 pub mod authorization;
 pub mod compensation;
+pub mod credentials;
 pub mod location;
 pub mod period;
 pub mod queries;
