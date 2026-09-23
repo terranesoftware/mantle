@@ -1,6 +1,7 @@
 pub mod ach;
 pub mod iban;
 pub mod kind;
+pub mod pix;
 pub mod queries;
 
 use sqlx::prelude::FromRow;
