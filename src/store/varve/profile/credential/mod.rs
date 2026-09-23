@@ -4,7 +4,7 @@ pub mod queries;
 
 use sqlx::prelude::FromRow;
 
-use crate::store::varve::profile::credentials::kind::Credential;
+use crate::store::varve::profile::credential::kind::Credential;
 
 #[derive(FromRow)]
 pub struct CredentialRow {
