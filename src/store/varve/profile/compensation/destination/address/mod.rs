@@ -3,6 +3,7 @@ pub mod iban;
 pub mod kind;
 pub mod pix;
 pub mod queries;
+pub mod upi;
 
 use sqlx::prelude::FromRow;
 
