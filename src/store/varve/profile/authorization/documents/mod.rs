@@ -1,3 +1,4 @@
+pub mod issuers;
 pub mod queries;
 
 use sqlx::{postgres::types::PgRange, prelude::FromRow};
