@@ -1,5 +1,6 @@
 pub mod destination;
 pub mod queries;
+pub mod registration;
 
 use sqlx::prelude::FromRow;
 
