@@ -1,3 +1,5 @@
+pub mod address;
+
 use sqlx::prelude::FromRow;
 
 use crate::store::varve::profile::compensation::destination::kind::Destination;
