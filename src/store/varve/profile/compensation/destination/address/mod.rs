@@ -12,3 +12,12 @@ pub struct AddressRow {
 
     kind: Address
 }
+
+impl AddressRow {
+    keys!(destination);
+
+    /// Returns a copy of the contained `Address`.
+    pub fn kind(&self) -> Address {
+        self.kind
+    }
+}
