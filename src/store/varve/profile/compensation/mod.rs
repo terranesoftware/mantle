@@ -1,3 +1,4 @@
+pub mod destination;
 pub mod queries;
 
 use sqlx::prelude::FromRow;
