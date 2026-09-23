@@ -1,3 +1,4 @@
+pub mod authorization;
 pub mod location;
 pub mod period;
 pub mod queries;
