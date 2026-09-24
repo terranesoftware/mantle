@@ -18,7 +18,7 @@ impl MapRow {
 
         recurse = async |pool, row: &Self| -> Result<(), Error> {
             for (index, body) in map.1.iter().enumerate() {
-                let body_row = BodyRow::insert(pool, map.0, (map.0, body.1)).await?;
+                let body_row = Box::pin(BodyRow::insert(pool, map.0, (map.0, body.1))).await?;
                 EntryRow::insert(pool, row.id, (index, body_row.id, body.0.as_str())).await?;
             }
 

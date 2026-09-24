@@ -46,7 +46,7 @@ macro_rules! queries {
                 .fetch_one(pool)
                 .await?;
             
-            $(($recurse)(pool, &row);)?
+            $(($recurse)(pool, &row).await?;)?
 
             Ok(row)
         }
@@ -106,6 +106,8 @@ macro_rules! queries {
             $($foreign_ident: Option<i64>,)?
             $($param_ident: $param_ty)?
         ) -> Result<Self, Error> {
+            $(let _ = &$param_ident;)?
+            
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("UPDATE ", $table, " SET (" ));
             
             let mut names = builder.separated(", ");

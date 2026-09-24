@@ -12,6 +12,6 @@ impl IntegerRow {
 
         names = ["integer"];
 
-        binds = [];
+        binds = [integer];
     }
 }
