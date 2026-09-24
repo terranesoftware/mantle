@@ -1,3 +1,4 @@
+use framboid::account::profile::location::Location as FramboidLocation;
 use sqlx::prelude::Type;
 
 #[derive(Type)]
@@ -9,8 +10,8 @@ pub struct Location {
     state: String
 }
 
-impl From<&framboid::account::profile::location::Location> for Location {
-    fn from(value: &framboid::account::profile::location::Location) -> Self {
+impl From<&FramboidLocation> for Location {
+    fn from(value: &FramboidLocation) -> Self {
         Self {
             city: value.city().to_string(),
             country: value.country().to_string(),

@@ -1,3 +1,4 @@
+use framboid::account::profile::credentials::{Credential as FramboidCredential, CredentialKind as FramboidCredentialKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -10,10 +11,10 @@ pub enum CredentialKind {
     Education
 }
 
-impl From<&framboid::account::profile::credentials::Credential> for Credential {
-    fn from(value: &framboid::account::profile::credentials::Credential) -> Self {
+impl From<&FramboidCredential> for Credential {
+    fn from(value: &FramboidCredential) -> Self {
         match value.kind() {
-            framboid::account::profile::credentials::CredentialKind::Education { .. } => Credential(CredentialKind::Education)
+            FramboidCredentialKind::Education { .. } => Credential(CredentialKind::Education)
         }
     }
 }

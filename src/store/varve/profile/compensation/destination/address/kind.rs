@@ -1,3 +1,4 @@
+use framboid::account::profile::compensation::destination::address::{Address as FramboidAddress, AddressKind as FramboidAddressKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -13,13 +14,13 @@ pub enum AddressKind {
     Upi
 }
 
-impl From<&framboid::account::profile::compensation::destination::address::Address> for Address {
-    fn from(value: &framboid::account::profile::compensation::destination::address::Address) -> Self {
+impl From<&FramboidAddress> for Address {
+    fn from(value: &FramboidAddress) -> Self {
         match value.kind() {
-            framboid::account::profile::compensation::destination::address::AddressKind::Ach { .. } => Address(AddressKind::Ach),
-            framboid::account::profile::compensation::destination::address::AddressKind::Iban(_) => Address(AddressKind::Iban),
-            framboid::account::profile::compensation::destination::address::AddressKind::Pix(_) => Address(AddressKind::Pix),
-            framboid::account::profile::compensation::destination::address::AddressKind::Upi(_) => Address(AddressKind::Upi)
+            FramboidAddressKind::Ach { .. } => Address(AddressKind::Ach),
+            FramboidAddressKind::Iban(_) => Address(AddressKind::Iban),
+            FramboidAddressKind::Pix(_) => Address(AddressKind::Pix),
+            FramboidAddressKind::Upi(_) => Address(AddressKind::Upi)
         }
     }
 }

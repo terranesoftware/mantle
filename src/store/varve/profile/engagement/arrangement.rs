@@ -1,3 +1,4 @@
+use framboid::account::profile::engagement::arrangement::{Arrangement as FramboidArrangement, ArrangementKind as FramboidArrangementKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -12,12 +13,12 @@ pub enum ArrangementKind {
     Remote
 }
 
-impl From<&framboid::account::profile::engagement::arrangement::Arrangement> for Arrangement {
-    fn from(value: &framboid::account::profile::engagement::arrangement::Arrangement) -> Self {
+impl From<FramboidArrangement> for Arrangement {
+    fn from(value: FramboidArrangement) -> Self {
         match value.kind() {
-            framboid::account::profile::engagement::arrangement::ArrangementKind::Hybrid => Arrangement(ArrangementKind::Hybrid),
-            framboid::account::profile::engagement::arrangement::ArrangementKind::OnSite => Arrangement(ArrangementKind::OnSite),
-            framboid::account::profile::engagement::arrangement::ArrangementKind::Remote => Arrangement(ArrangementKind::Remote)
+            FramboidArrangementKind::Hybrid => Arrangement(ArrangementKind::Hybrid),
+            FramboidArrangementKind::OnSite => Arrangement(ArrangementKind::OnSite),
+            FramboidArrangementKind::Remote => Arrangement(ArrangementKind::Remote)
         }
     }
 }

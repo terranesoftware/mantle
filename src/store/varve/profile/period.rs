@@ -1,3 +1,4 @@
+use framboid::account::profile::period::Period as FramboidPeriod;
 use sqlx::prelude::Type;
 use time::Date;
 
@@ -8,8 +9,8 @@ pub struct Period {
     end: Option<Date>
 }
 
-impl From<&framboid::account::profile::period::Period> for Period {
-    fn from(value: &framboid::account::profile::period::Period) -> Self {
+impl From<FramboidPeriod> for Period {
+    fn from(value: FramboidPeriod) -> Self {
         Self {
             start: value.start(),
             end: value.end()

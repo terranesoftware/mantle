@@ -3,13 +3,13 @@ use std::ops::Range;
 use framboid::account::profile::authorization::document::Document;
 use sqlx::{Error, PgPool, Postgres, QueryBuilder, postgres::types::PgRange, query_as};
 
-use crate::store::varve::profile::authorization::documents::DocumentRow;
+use crate::store::varve::profile::authorization::documents::{DocumentRow, issuers::IssuerRow};
 
 impl DocumentRow {
     queries! {
         foreign = authorization;
 
-        param = document: Document;
+        param = document: &Document;
 
         table = "documents";
 
@@ -21,6 +21,8 @@ impl DocumentRow {
             document.validity().map(Range::from).map(PgRange::from)
         ];
 
-        recurse = {};
+        recurse = async |pool, row: &Self| {
+            IssuerRow::insert(pool, row.id, document.issuer()).await
+        };
     }
 }

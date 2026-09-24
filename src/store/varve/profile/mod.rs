@@ -1,6 +1,7 @@
 pub mod authorization;
 pub mod compensation;
 pub mod credential;
+pub mod engagement;
 pub mod identity;
 pub mod location;
 pub mod period;

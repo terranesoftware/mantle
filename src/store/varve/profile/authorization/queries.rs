@@ -1,9 +1,12 @@
-use crate::store::varve::profile::authorization::AuthorizationRow;
+use crate::store::varve::profile::authorization::{AuthorizationRow, documents::DocumentRow};
+use framboid::account::profile::authorization::Authorization;
 use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
 impl AuthorizationRow {
     queries! {
         foreign = profile;
+
+        param = authorization: &Authorization;
 
         table = "authorizations";
 
@@ -11,7 +14,12 @@ impl AuthorizationRow {
 
         binds = [];
 
-        // Recurse in later
-        recurse = {};
+        recurse = async |pool, row: &Self| -> Result<(), Error> {
+            for document in authorization.documents() {
+                DocumentRow::insert(pool, row.id, document).await?;
+            }
+
+            Ok(())
+        };
     }
 }

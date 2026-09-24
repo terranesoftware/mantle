@@ -1,3 +1,4 @@
+use framboid::account::profile::credentials::status::{Status as FramboidStatus, StatusKind as FramboidStatusKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -14,14 +15,14 @@ pub enum StatusKind {
     Withdrawn
 }
 
-impl From<&framboid::account::profile::credentials::status::Status> for Status {
-    fn from(value: &framboid::account::profile::credentials::status::Status) -> Self {
+impl From<FramboidStatus> for Status {
+    fn from(value: FramboidStatus) -> Self {
         match value.kind() {
-            framboid::account::profile::credentials::status::StatusKind::Completed => Status(StatusKind::Completed),
-            framboid::account::profile::credentials::status::StatusKind::Enrolled => Status(StatusKind::Enrolled),
-            framboid::account::profile::credentials::status::StatusKind::DroppedOut => Status(StatusKind::DroppedOut),
-            framboid::account::profile::credentials::status::StatusKind::Transferred => Status(StatusKind::Transferred),
-            framboid::account::profile::credentials::status::StatusKind::Withdrawn => Status(StatusKind::Withdrawn)
+            FramboidStatusKind::Completed => Status(StatusKind::Completed),
+            FramboidStatusKind::Enrolled => Status(StatusKind::Enrolled),
+            FramboidStatusKind::DroppedOut => Status(StatusKind::DroppedOut),
+            FramboidStatusKind::Transferred => Status(StatusKind::Transferred),
+            FramboidStatusKind::Withdrawn => Status(StatusKind::Withdrawn)
         }
     }
 }

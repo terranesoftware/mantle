@@ -1,3 +1,4 @@
+use framboid::account::profile::identity::name::usage::{Usage as FramboidUsage, UsageKind as FramboidUsageKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -12,12 +13,12 @@ pub enum UsageKind {
     Used
 }
 
-impl From<&framboid::account::profile::identity::name::usage::Usage> for Usage {
-    fn from(value: &framboid::account::profile::identity::name::usage::Usage) -> Self {
+impl From<FramboidUsage> for Usage {
+    fn from(value: FramboidUsage) -> Self {
         match value.kind() {
-            framboid::account::profile::identity::name::usage::UsageKind::Legal => Usage(UsageKind::Legal),
-            framboid::account::profile::identity::name::usage::UsageKind::Prior(_) => Usage(UsageKind::Prior),
-            framboid::account::profile::identity::name::usage::UsageKind::Used => Usage(UsageKind::Used)
+            FramboidUsageKind::Legal => Usage(UsageKind::Legal),
+            FramboidUsageKind::Prior(_) => Usage(UsageKind::Prior),
+            FramboidUsageKind::Used => Usage(UsageKind::Used)
         }
     }
 }

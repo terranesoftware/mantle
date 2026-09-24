@@ -1,3 +1,4 @@
+use framboid::addressing::body::{Body as FramboidBody, BodyKind as FramboidBodyKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -15,15 +16,15 @@ pub enum BodyKind {
     Text
 }
 
-impl From<&framboid::addressing::body::Body> for Body {
-    fn from(value: &framboid::addressing::body::Body) -> Self {
+impl From<&FramboidBody> for Body {
+    fn from(value: &FramboidBody) -> Self {
         match value.kind() {
-            framboid::addressing::body::BodyKind::Boolean(_) => Body(BodyKind::Boolean),
-            framboid::addressing::body::BodyKind::Handle(_) => Body(BodyKind::Handle),
-            framboid::addressing::body::BodyKind::Integer(_) => Body(BodyKind::Integer),
-            framboid::addressing::body::BodyKind::List(_) => Body(BodyKind::List),
-            framboid::addressing::body::BodyKind::Map(_) => Body(BodyKind::Map),
-            framboid::addressing::body::BodyKind::Text(_) => Body(BodyKind::Text)
+            FramboidBodyKind::Boolean(_) => Body(BodyKind::Boolean),
+            FramboidBodyKind::Handle(_) => Body(BodyKind::Handle),
+            FramboidBodyKind::Integer(_) => Body(BodyKind::Integer),
+            FramboidBodyKind::List(_) => Body(BodyKind::List),
+            FramboidBodyKind::Map(_) => Body(BodyKind::Map),
+            FramboidBodyKind::Text(_) => Body(BodyKind::Text)
         }
     }
 }

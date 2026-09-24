@@ -6,7 +6,7 @@ impl IssuerRow {
     queries! {
         foreign = document;
 
-        param = issuer: Issuer;
+        param = issuer: &Issuer;
 
         table = "issuers";
 

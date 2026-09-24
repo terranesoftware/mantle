@@ -1,37 +1,18 @@
-use framboid::account::profile::credentials::{Credential, CredentialKind};
+use framboid::account::profile::{credentials::status::Status as FramboidStatus, location::Location as FramboidLocation};
 use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
-use crate::store::varve::profile::{
-    credential::education::{EducationRow, status::Status},
-    location::Location
-};
+use crate::store::varve::profile::{credential::education::{EducationRow, status::Status}, location::Location};
 
 impl EducationRow {
     queries! {
         foreign = credential;
 
-        param = education: &Credential;
+        param = education: (&str, &str, &FramboidLocation, &str, FramboidStatus);
 
         table = "educations";
 
         names = ["degree", "discipline", "location", "school", "status"];
 
-        binds = [
-            match education.kind() {
-                CredentialKind::Education { degree, .. } => degree,
-            },
-            match education.kind() {
-                CredentialKind::Education { discipline, .. } => discipline,
-            },
-            match education.kind() {
-                CredentialKind::Education { location, .. } => Location::from(location),
-            },
-            match education.kind() {
-                CredentialKind::Education { school, .. } => school,
-            },
-            match education.kind() {
-                CredentialKind::Education { status, .. } => Status::from(status),
-            }
-        ];
+        binds = [education.0, education.1, Location::from(education.2), education.3, Status::from(education.4)];
     }
 }

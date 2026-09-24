@@ -1,3 +1,4 @@
+use framboid::account::profile::identity::name::identifiers::Identifiers as FramboidIdentifiers;
 use sqlx::prelude::Type;
 
 #[derive(Type)]
@@ -7,8 +8,8 @@ pub struct Identifiers {
     secondary: Option<String>
 }
 
-impl From<&framboid::account::profile::identity::name::identifiers::Identifiers> for Identifiers {
-    fn from(value: &framboid::account::profile::identity::name::identifiers::Identifiers) -> Self {
+impl From<&FramboidIdentifiers> for Identifiers {
+    fn from(value: &FramboidIdentifiers) -> Self {
         Self {
             primary: value.primary().to_string(),
             secondary: value.secondary().map(str::to_string)

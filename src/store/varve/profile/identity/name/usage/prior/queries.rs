@@ -1,4 +1,4 @@
-use framboid::account::profile::identity::name::usage::{Usage, UsageKind};
+use framboid::account::profile::period::Period as FramboidPeriod;
 use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
 use crate::store::varve::profile::{
@@ -10,17 +10,12 @@ impl PriorRow {
     queries! {
         foreign = usage;
 
-        param = prior: Usage;
+        param = period: FramboidPeriod;
 
         table = "priors";
 
         names = ["period"];
 
-        binds = [
-            match prior.kind() {
-                UsageKind::Prior(period) => Period::from(&period),
-                _ => unreachable!()
-            }
-        ];
+        binds = [Period::from(period)];
     }
 }

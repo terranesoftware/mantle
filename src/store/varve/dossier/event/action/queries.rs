@@ -3,7 +3,7 @@ use framboid::{addressing::Action, keys::Key};
 use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 use time::UtcOffset;
 
-use crate::store::varve::dossier::event::action::ActionRow;
+use crate::store::varve::dossier::event::action::{ActionRow, body::BodyRow};
 
 impl ActionRow {
     queries! {
@@ -23,7 +23,8 @@ impl ActionRow {
             action.2.time().to_offset(UtcOffset::UTC)
         ];
 
-        // Complete this
-        recurse = {};
+        recurse = async |pool, row: &Self| {
+            BodyRow::insert(pool, row.id, (row.id, action.2.body())).await
+        };
     }
 }

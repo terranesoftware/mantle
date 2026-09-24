@@ -1,3 +1,4 @@
+use framboid::account::profile::compensation::destination::{Destination as FramboidDestination, DestinationKind as FramboidDestinationKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -11,11 +12,11 @@ pub enum DestinationKind {
     Retirement
 }
 
-impl From<&framboid::account::profile::compensation::destination::Destination> for Destination {
-    fn from(value: &framboid::account::profile::compensation::destination::Destination) -> Self {
+impl From<&FramboidDestination> for Destination {
+    fn from(value: &FramboidDestination) -> Self {
         match value.kind() {
-            framboid::account::profile::compensation::destination::DestinationKind::Default(_) => Destination(DestinationKind::Default),
-            framboid::account::profile::compensation::destination::DestinationKind::Retirement(_) => Destination(DestinationKind::Retirement)
+            FramboidDestinationKind::Default(_) => Destination(DestinationKind::Default),
+            FramboidDestinationKind::Retirement(_) => Destination(DestinationKind::Retirement)
         }
     }
 }

@@ -1,13 +1,14 @@
-use framboid::addressing::body::{Body, BodyKind};
+use framboid::addressing::body::Body;
+use indexmap::IndexMap;
 use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
 
-use crate::store::varve::dossier::event::action::body::map::MapRow;
+use crate::store::varve::dossier::event::action::body::{BodyRow, map::{MapRow, entries::EntryRow}};
 
 impl MapRow {
     queries! {
         foreign = body;
         
-        param = map: &Body;
+        param = map: (i64, &IndexMap<String, Body>);
         
         table = "maps";
 
@@ -15,11 +16,13 @@ impl MapRow {
 
         binds = [];
 
-        recurse = {
-            let map = match map.kind() {
-                BodyKind::Map(map) => map,
-                _ => unreachable!()
-            };
+        recurse = async |pool, row: &Self| -> Result<(), Error> {
+            for (index, body) in map.1.iter().enumerate() {
+                let body_row = BodyRow::insert(pool, map.0, (map.0, body.1)).await?;
+                EntryRow::insert(pool, row.id, (index, body_row.id, body.0.as_str())).await?;
+            }
+
+            Ok(())
         };
     }
 }

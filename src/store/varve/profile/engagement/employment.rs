@@ -1,3 +1,4 @@
+use framboid::account::profile::engagement::employment::{Employment as FramboidEmployment, EmploymentKind as FramboidEmploymentKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]
@@ -14,14 +15,14 @@ pub enum EmploymentKind {
     PartTime
 }
 
-impl From<&framboid::account::profile::engagement::employment::Employment> for Employment {
-    fn from(value: &framboid::account::profile::engagement::employment::Employment) -> Self {
+impl From<FramboidEmployment> for Employment {
+    fn from(value: FramboidEmployment) -> Self {
         match value.kind() {
-            framboid::account::profile::engagement::employment::EmploymentKind::Apprenticeship => Employment(EmploymentKind::Apprenticeship),
-            framboid::account::profile::engagement::employment::EmploymentKind::Contract => Employment(EmploymentKind::Contract),
-            framboid::account::profile::engagement::employment::EmploymentKind::Internship => Employment(EmploymentKind::Internship),
-            framboid::account::profile::engagement::employment::EmploymentKind::FullTime => Employment(EmploymentKind::FullTime),
-            framboid::account::profile::engagement::employment::EmploymentKind::PartTime => Employment(EmploymentKind::PartTime)
+            FramboidEmploymentKind::Apprenticeship => Employment(EmploymentKind::Apprenticeship),
+            FramboidEmploymentKind::Contract => Employment(EmploymentKind::Contract),
+            FramboidEmploymentKind::Internship => Employment(EmploymentKind::Internship),
+            FramboidEmploymentKind::FullTime => Employment(EmploymentKind::FullTime),
+            FramboidEmploymentKind::PartTime => Employment(EmploymentKind::PartTime)
         }
     }
 }

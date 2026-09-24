@@ -18,11 +18,11 @@ impl EngagementRow {
         names = ["arrangement", "employer", "employment", "location", "period", "title"];
 
         binds = [
-            Arrangement::from(&engagement.arrangement()),
+            Arrangement::from(engagement.arrangement()),
             engagement.employer(),
-            Employment::from(&engagement.employment()),
+            Employment::from(engagement.employment()),
             engagement.location().map(Location::from),
-            Period::from(&engagement.period()),
+            Period::from(engagement.period()),
             engagement.title()
         ];
     }

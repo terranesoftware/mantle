@@ -27,7 +27,7 @@ macro_rules! queries {
 
         binds = [$($bind:expr),*];
 
-        $(recurse = $recurse:block;)?
+        $(recurse = $recurse:expr;)?
     ) =>
     {
         pub async fn insert(
@@ -46,7 +46,7 @@ macro_rules! queries {
                 .fetch_one(pool)
                 .await?;
             
-            $($recurse)?
+            $(($recurse)(pool, &row);)?
 
             Ok(row)
         }
@@ -143,7 +143,7 @@ macro_rules! queries {
 
         binds = [$($bind:expr),*];
 
-        $(recurse = $recurse:block;)?
+        $(recurse = $recurse:expr;)?
     ) =>
     {
         queries! {
