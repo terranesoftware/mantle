@@ -1,6 +1,7 @@
 use std::{env::var, io::Result};
 
-use axum::{Router, serve};
+use axum::serve;
+use mantle::api::router;
 use tokio::{main, net::TcpListener};
 
 #[main]
@@ -9,7 +10,7 @@ async fn main() -> Result<()> {
     let port = var("PORT").unwrap_or("8000".to_string());
     let listener = TcpListener::bind(format!("{}:{}", host, port)).await?;
 
-    let mantle = Router::new();
+    let mantle = router();
 
     serve(listener, mantle).await
 }
