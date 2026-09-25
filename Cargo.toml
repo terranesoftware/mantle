@@ -4,9 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+axum = "0.8.9"
 blake3 = "1.8.7"
 framboid = "0.6.0"
 indexmap = "2.14.2"
 sqlx = { version = "0.9.0", features = ["postgres", "runtime-tokio", "time"] }
 time = "0.3.55"
-tokio = "1.53.1"
+tokio = { version = "1.53.1", features = ["rt-multi-thread"] }
