@@ -9,7 +9,7 @@ use crate::store::varve::profile::{
 
 impl EngagementRow {
     queries! {
-        foreign = profile;
+        foreign = profile: i64;
 
         param = engagement: &Engagement;
 

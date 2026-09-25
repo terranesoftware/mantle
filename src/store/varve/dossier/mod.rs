@@ -17,7 +17,7 @@ pub struct DossierRow {
 }
 
 impl DossierRow {
-    keys!(varve);
+    keys!(varve: i64);
 
     /// Returns a copy of the contained from datetime.
     pub fn from(&self) -> OffsetDateTime {

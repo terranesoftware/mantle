@@ -5,7 +5,7 @@ use crate::store::varve::profile::identity::name::usage::{UsageRow, kind::Usage,
 
 impl UsageRow {
     queries! {
-        foreign = name;
+        foreign = name: i64;
 
         param = usage: FramboidUsage;
 

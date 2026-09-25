@@ -15,7 +15,7 @@ pub struct CredentialRow {
 }
 
 impl CredentialRow {
-    keys!(profile);
+    keys!(profile: i64);
 
     /// Returns a copy of the contained `Credential`.
     pub fn kind(&self) -> Credential {

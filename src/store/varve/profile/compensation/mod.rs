@@ -11,5 +11,5 @@ pub struct CompensationRow {
 }
 
 impl CompensationRow {
-    keys!(profile);
+    keys!(profile: i64);
 }

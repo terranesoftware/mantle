@@ -16,7 +16,7 @@ pub struct NameRow {
 }
 
 impl NameRow {
-    keys!(identity);
+    keys!(identity: i64);
 
     /// Returns a reference to the contained latin identifiers if present.
     pub fn latin(&self) -> Option<&Identifiers> {

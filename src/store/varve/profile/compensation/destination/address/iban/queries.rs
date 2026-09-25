@@ -4,7 +4,7 @@ use crate::store::varve::profile::compensation::destination::address::iban::Iban
 
 impl IbanRow {
     queries! {
-        foreign = address;
+        foreign = address: i64;
 
         param = iban: &str;
 

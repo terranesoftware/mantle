@@ -16,7 +16,7 @@ pub struct AchRow {
 }
 
 impl AchRow {
-    keys!(address);
+    keys!(address: i64);
 
     /// Returns a reference to the contained account.
     pub fn account(&self) -> &str {

@@ -11,7 +11,7 @@ pub struct PixRow {
 }
 
 impl PixRow {
-    keys!(address);
+    keys!(address: i64);
 
     /// Returns a reference to the contained identifier.
     pub fn identifier(&self) -> &str {

@@ -4,7 +4,7 @@ use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query
 
 impl IssuerRow {
     queries! {
-        foreign = document;
+        foreign = document: i64;
 
         param = issuer: &Issuer;
 

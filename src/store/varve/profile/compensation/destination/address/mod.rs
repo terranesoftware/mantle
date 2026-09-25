@@ -18,7 +18,7 @@ pub struct AddressRow {
 }
 
 impl AddressRow {
-    keys!(destination);
+    keys!(destination: i64);
 
     /// Returns a copy of the contained `Address`.
     pub fn kind(&self) -> Address {

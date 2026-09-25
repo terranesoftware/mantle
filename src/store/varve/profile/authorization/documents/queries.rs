@@ -7,7 +7,7 @@ use crate::store::varve::profile::authorization::documents::{DocumentRow, issuer
 
 impl DocumentRow {
     queries! {
-        foreign = authorization;
+        foreign = authorization: i64;
 
         param = document: &Document;
 

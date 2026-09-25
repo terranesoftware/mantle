@@ -11,7 +11,7 @@ pub struct IbanRow {
 }
 
 impl IbanRow {
-    keys!(address);
+    keys!(address: i64);
 
     /// Returns a reference to the contained IBAN.
     pub fn iban(&self) -> &str {

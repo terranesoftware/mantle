@@ -14,7 +14,7 @@ pub struct IssuerRow {
 }
 
 impl IssuerRow {
-    keys!(document);
+    keys!(document: i64);
 
     /// Returns a reference to the contained name.
     pub fn name(&self) -> &str {

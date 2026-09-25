@@ -8,7 +8,7 @@ use crate::store::varve::profile::{
 
 impl AddressRow {
     queries! {
-        foreign = identity;
+        foreign = identity: i64;
 
         param = address: &Address;
 

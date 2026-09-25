@@ -6,12 +6,13 @@ use sqlx::prelude::FromRow;
 #[derive(FromRow)]
 pub struct AccountRow {
     id: i64,
+    organization: Option<i64>,
 
     account: String
 }
 
 impl AccountRow {
-    keys!();
+    keys!(organization: Option<i64>);
 
     /// Returns a reference to the contained account.
     pub fn account(&self) -> &str {

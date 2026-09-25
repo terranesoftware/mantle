@@ -15,7 +15,7 @@ pub struct AddressRow {
 }
 
 impl AddressRow {
-    keys!(identity);
+    keys!(identity: i64);
 
     /// Returns a reference to the contained address lines.
     pub fn lines(&self) -> &[String] {

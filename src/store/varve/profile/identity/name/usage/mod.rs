@@ -15,7 +15,7 @@ pub struct UsageRow {
 }
 
 impl UsageRow {
-    keys!(name);
+    keys!(name: i64);
 
     /// Returns a copy of the contained `Usage`.
     pub fn kind(&self) -> Usage {

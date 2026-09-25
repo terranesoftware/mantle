@@ -11,7 +11,7 @@ pub struct UpiRow {
 }
 
 impl UpiRow {
-    keys!(address);
+    keys!(address: i64);
 
     /// Returns a reference to the contained VPA.
     pub fn vpa(&self) -> &str {

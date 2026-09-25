@@ -24,7 +24,7 @@ pub struct EngagementRow {
 }
 
 impl EngagementRow {
-    keys!(profile);
+    keys!(profile: i64);
 
     /// Returns a copy of the contained `Arrangement`.
     pub fn arrangement(&self) -> Arrangement {

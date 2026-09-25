@@ -16,7 +16,7 @@ pub struct DestinationRow {
 }
 
 impl DestinationRow {
-    keys!(compensation);
+    keys!(compensation: i64);
 
     /// Returns a copy of the contained `Destination`.
     pub fn kind(&self) -> Destination {

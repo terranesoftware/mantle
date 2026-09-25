@@ -21,7 +21,7 @@ pub struct BodyRow {
 }
 
 impl BodyRow {
-    keys!(action);
+    keys!(action: i64);
 
     /// Returns a copy of the contained `Body`.
     pub fn kind(&self) -> Body {

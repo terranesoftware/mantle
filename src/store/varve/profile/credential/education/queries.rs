@@ -5,7 +5,7 @@ use crate::store::varve::profile::{credential::education::{EducationRow, status:
 
 impl EducationRow {
     queries! {
-        foreign = credential;
+        foreign = credential: i64;
 
         param = education: (&str, &str, &FramboidLocation, &str, FramboidStatus);
 

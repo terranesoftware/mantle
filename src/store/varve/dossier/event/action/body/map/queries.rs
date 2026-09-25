@@ -6,7 +6,7 @@ use crate::store::varve::dossier::event::action::body::{BodyRow, map::{MapRow, e
 
 impl MapRow {
     queries! {
-        foreign = body;
+        foreign = body: i64;
         
         param = map: (i64, &IndexMap<String, Body>);
         

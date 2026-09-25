@@ -16,7 +16,7 @@ pub struct IdentityRow {
 }
 
 impl IdentityRow {
-    keys!(profile);
+    keys!(profile: i64);
 
     /// Returns a copy of the contained birth date.
     pub fn birth(&self) -> Date {

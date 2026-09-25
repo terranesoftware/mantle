@@ -18,7 +18,7 @@ pub struct EducationRow {
 }
 
 impl EducationRow {
-    keys!(credential);
+    keys!(credential: i64);
 
     /// Returns a reference to the contained degree.
     pub fn degree(&self) -> &str {

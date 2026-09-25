@@ -11,5 +11,5 @@ pub struct MapRow {
 }
 
 impl MapRow {
-    keys!(body);
+    keys!(body: i64);
 }

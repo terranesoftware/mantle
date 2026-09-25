@@ -15,7 +15,7 @@ pub struct DocumentRow {
 }
 
 impl DocumentRow {
-    keys!(authorization);
+    keys!(authorization: i64);
 
     /// Returns a reference to the contained name.
     pub fn name(&self) -> &str {

@@ -1,5 +1,5 @@
 macro_rules! keys {
-    ($($name:ident)?) => {
+    ($($name:ident: $type:ty)?) => {
         /// Returns a copy of the contained primary key.
         pub fn id(&self) -> i64 {
             self.id
@@ -7,7 +7,7 @@ macro_rules! keys {
 
         $(
             /// Returns a copy of the contained foreign key.
-            pub fn $name(&self) -> i64 {
+            pub fn $name(&self) -> $type {
                 self.$name
             }
         )?
@@ -19,7 +19,7 @@ macro_rules! queries {
     (
         @insert
 
-        $(foreign = $foreign_ident:ident;)?
+        $(foreign = $foreign_ident:ident: $foreign_ty:ty;)?
 
         $(param = $param_ident:ident: $param_ty:ty;)?
         
@@ -34,7 +34,7 @@ macro_rules! queries {
     {
         pub async fn insert(
             pool: &PgPool,
-            $($foreign_ident: i64,)?
+            $($foreign_ident: $foreign_ty,)?
             $($param_ident: $param_ty)?
         ) -> Result<Self, Error> {
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("INSERT INTO ", $table, " VALUES (DEFAULT, "));
@@ -131,7 +131,7 @@ macro_rules! queries {
     (
         @update
         
-        $(foreign = $foreign_ident:ident;)?
+        $(foreign = $foreign_ident:ident: $foreign_ty:ty;)?
 
         $(param = $param_ident:ident: $param_ty:ty;)?
         
@@ -147,7 +147,7 @@ macro_rules! queries {
         pub async fn update(
             pool: &PgPool,
             id: i64,
-            $($foreign_ident: Option<i64>,)?
+            $($foreign_ident: $foreign_ty,)?
             $($param_ident: $param_ty)?
         ) -> Result<Self, Error> {
             $(let _ = &$param_ident;)?
@@ -181,7 +181,7 @@ macro_rules! queries {
     };
     
     (
-        $(foreign = $foreign_ident:ident;)?
+        $(foreign = $foreign_ident:ident: $foreign_ty:ty;)?
         
         $(param = $param_ident:ident: $param_ty:ty;)?
         
@@ -199,7 +199,7 @@ macro_rules! queries {
         queries! {
             @insert
     
-            $(foreign = $foreign_ident;)?
+            $(foreign = $foreign_ident: $foreign_ty;)?
     
             $(param = $param_ident: $param_ty;)?
             
@@ -227,7 +227,7 @@ macro_rules! queries {
         queries! {
             @update
                     
-            $(foreign = $foreign_ident;)?
+            $(foreign = $foreign_ident: $foreign_ty;)?
     
             $(param = $param_ident: $param_ty;)?
             

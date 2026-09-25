@@ -5,7 +5,7 @@ use crate::store::varve::profile::compensation::destination::address::ach::{AchR
 
 impl AchRow {
     queries! {
-        foreign = address;
+        foreign = address: i64;
 
         param = ach: (&str, FramboidAccount, &str);
 

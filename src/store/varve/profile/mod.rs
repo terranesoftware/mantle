@@ -16,5 +16,5 @@ pub struct ProfileRow {
 }
 
 impl ProfileRow {
-    keys!(varve);
+    keys!(varve: i64);
 }

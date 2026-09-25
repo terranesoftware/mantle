@@ -5,6 +5,8 @@ use crate::store::account::AccountRow;
 
 impl AccountRow {
     queries! {
+        foreign = organization: Option<i64>;
+        
         param = account: &AccountKey;
 
         table = "accounts";

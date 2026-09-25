@@ -5,7 +5,7 @@ use crate::store::varve::profile::compensation::destination::address::{AddressRo
 
 impl AddressRow {
     queries! {
-        foreign = destination;
+        foreign = destination: i64;
 
         param = address: &FramboidAddress;
 

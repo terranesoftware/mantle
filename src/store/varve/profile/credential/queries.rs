@@ -5,7 +5,7 @@ use crate::store::varve::profile::credential::{CredentialRow, education::Educati
 
 impl CredentialRow {
     queries! {
-        foreign = profile;
+        foreign = profile: i64;
 
         param = credential: &FramboidCredential;
 

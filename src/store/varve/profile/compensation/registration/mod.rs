@@ -15,7 +15,7 @@ pub struct RegistrationRow {
 }
 
 impl RegistrationRow {
-    keys!(compensation);
+    keys!(compensation: i64);
 
     /// Returns a reference to the contained scheme.
     pub fn scheme(&self) -> &str {

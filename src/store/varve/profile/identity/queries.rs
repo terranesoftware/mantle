@@ -5,7 +5,7 @@ use crate::store::varve::profile::identity::{IdentityRow, address::AddressRow, n
 
 impl IdentityRow {
     queries! {
-        foreign = profile;
+        foreign = profile: i64;
 
         param = identity: &Identity;
 

@@ -12,7 +12,7 @@ pub struct IntegerRow {
 }
 
 impl IntegerRow {
-    keys!(body);
+    keys!(body: i64);
 
     /// Returns a copy of the contained integer.
     pub fn integer(&self) -> i64 {

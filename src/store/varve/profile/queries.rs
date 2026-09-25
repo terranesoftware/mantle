@@ -4,7 +4,7 @@ use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query
 
 impl ProfileRow {
     queries! {
-        foreign = varve;
+        foreign = varve: i64;
 
         param = profile: &Profile;
 

@@ -5,7 +5,7 @@ use crate::store::varve::profile::{compensation::registration::RegistrationRow, 
 
 impl RegistrationRow {
     queries! {
-        foreign = compensation;
+        foreign = compensation: i64;
 
         param = registration: &Registration;
 

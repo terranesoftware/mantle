@@ -10,5 +10,5 @@ pub struct AuthorizationRow {
 }
 
 impl AuthorizationRow {
-    keys!(profile);
+    keys!(profile: i64);
 }

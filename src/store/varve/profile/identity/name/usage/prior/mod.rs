@@ -13,7 +13,7 @@ pub struct PriorRow {
 }
 
 impl PriorRow {
-    keys!(usage);
+    keys!(usage: i64);
 
     /// Returns a reference to the contained period.
     pub fn period(&self) -> &Period {

@@ -7,7 +7,7 @@ use crate::store::{source::SourceRow, varve::dossier::event::action::{ActionRow,
 
 impl ActionRow {
     queries! {
-        foreign = event;
+        foreign = event: i64;
         
         param = action: (usize, Hash, &Action);
         

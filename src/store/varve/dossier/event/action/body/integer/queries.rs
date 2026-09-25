@@ -4,7 +4,7 @@ use crate::store::varve::dossier::event::action::body::integer::IntegerRow;
 
 impl IntegerRow {
     queries! {
-        foreign = body;
+        foreign = body: i64;
         
         param = integer: i64;
 

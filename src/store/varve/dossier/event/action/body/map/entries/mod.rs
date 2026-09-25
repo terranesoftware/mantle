@@ -14,7 +14,7 @@ pub struct EntryRow {
 }
 
 impl EntryRow {
-    keys!(map);
+    keys!(map: i64);
 
     /// Returns a copy of the contained `bodies` foreign key.
     pub fn contains(&self) -> i64 {

@@ -4,7 +4,7 @@ use crate::store::varve::profile::compensation::destination::address::upi::UpiRo
 
 impl UpiRow {
     queries! {
-        foreign = address;
+        foreign = address: i64;
 
         param = upi: &str;
 

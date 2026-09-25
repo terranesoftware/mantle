@@ -12,7 +12,7 @@ pub struct BooleanRow {
 }
 
 impl BooleanRow {
-    keys!(body);
+    keys!(body: i64);
 
     /// Returns a copy of the contained boolean.
     pub fn boolean(&self) -> bool {

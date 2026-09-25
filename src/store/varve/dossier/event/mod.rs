@@ -17,7 +17,7 @@ pub struct EventRow {
 }
 
 impl EventRow {
-    keys!(dossier);
+    keys!(dossier: i64);
 
     /// Returns a copy of the contained from datetime.
     pub fn from(&self) -> OffsetDateTime {

@@ -5,7 +5,7 @@ use crate::store::varve::profile::compensation::destination::{DestinationRow, ad
 
 impl DestinationRow {
     queries! {
-        foreign = compensation;
+        foreign = compensation: i64;
 
         param = destination: &FramboidDestination;
 

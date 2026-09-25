@@ -5,7 +5,7 @@ use crate::store::varve::profile::identity::name::{NameRow, identifiers::Identif
 
 impl NameRow {
     queries! {
-        foreign = identity;
+        foreign = identity: i64;
 
         param = name: &Name;
 

@@ -4,7 +4,7 @@ use crate::store::varve::dossier::event::action::body::boolean::BooleanRow;
 
 impl BooleanRow {
     queries! {
-        foreign = body;
+        foreign = body: i64;
 
         param = boolean: bool;
 

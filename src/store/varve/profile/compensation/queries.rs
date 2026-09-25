@@ -4,7 +4,7 @@ use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query
 
 impl CompensationRow {
     queries! {
-        foreign = profile;
+        foreign = profile: i64;
 
         param = compensation: &Compensation;
 

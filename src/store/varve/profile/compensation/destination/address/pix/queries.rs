@@ -4,7 +4,7 @@ use crate::store::varve::profile::compensation::destination::address::pix::PixRo
 
 impl PixRow {
     queries! {
-        foreign = address;
+        foreign = address: i64;
 
         param = key: &str;
 

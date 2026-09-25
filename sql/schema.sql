@@ -1,8 +1,11 @@
 -- Accounts
 CREATE TABLE accounts (
     id BIGSERIAL PRIMARY KEY,
+    organization BIGINT,
 
-    account TEXT NOT NULL
+    account TEXT NOT NULL,
+
+    FOREIGN KEY (organization) REFERENCES organizations (id)
 );
 
 -- Sources

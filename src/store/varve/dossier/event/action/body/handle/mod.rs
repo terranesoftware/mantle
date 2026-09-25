@@ -12,7 +12,7 @@ pub struct HandleRow {
 }
 
 impl HandleRow {
-    keys!(body);
+    keys!(body: i64);
 
     /// Returns a reference to the contained handle.
     pub fn handle(&self) -> &str {

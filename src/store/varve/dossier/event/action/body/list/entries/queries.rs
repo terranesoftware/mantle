@@ -3,7 +3,7 @@ use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query
 
 impl EntryRow {
     queries! {
-        foreign = list;
+        foreign = list: i64;
         
         param = entry: (usize, i64);
 

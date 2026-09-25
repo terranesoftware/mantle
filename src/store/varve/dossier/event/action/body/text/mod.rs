@@ -12,7 +12,7 @@ pub struct TextRow {
 }
 
 impl TextRow {
-    keys!(body);
+    keys!(body: i64);
 
     /// Returns a reference to the contained text.
     pub fn text(&self) -> &str {

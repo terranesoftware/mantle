@@ -8,7 +8,7 @@ use crate::store::varve::profile::{
 
 impl PriorRow {
     queries! {
-        foreign = usage;
+        foreign = usage: i64;
 
         param = period: FramboidPeriod;
 

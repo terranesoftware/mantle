@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::{BodyRow, list::{ListRow,
 
 impl ListRow {
     queries! {
-        foreign = body;
+        foreign = body: i64;
         
         param = list: (i64, &[Body]);
         

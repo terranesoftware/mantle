@@ -4,7 +4,7 @@ use crate::store::varve::dossier::event::action::body::handle::HandleRow;
 
 impl HandleRow {
     queries! {
-        foreign = body;
+        foreign = body: i64;
 
         param = handle: &str;
 

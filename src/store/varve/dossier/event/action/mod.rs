@@ -18,7 +18,7 @@ pub struct ActionRow {
 }
 
 impl ActionRow {
-    keys!(event);
+    keys!(event: i64);
 
     /// Returns a reference to the contained hash.
     pub fn hash(&self) -> &[u8] {

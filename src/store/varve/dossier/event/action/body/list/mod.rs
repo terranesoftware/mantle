@@ -11,5 +11,5 @@ pub struct ListRow {
 }
 
 impl ListRow {
-    keys!(body);
+    keys!(body: i64);
 }

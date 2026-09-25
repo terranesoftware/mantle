@@ -7,7 +7,7 @@ use crate::store::varve::dossier::{DossierRow, event::EventRow};
 
 impl DossierRow {
     queries! {
-        foreign = varve;
+        foreign = varve: i64;
         
         param = dossier: (usize, Hash, &Dossier);
         

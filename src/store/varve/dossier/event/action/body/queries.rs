@@ -5,7 +5,7 @@ use crate::store::varve::dossier::event::action::body::{BodyRow, boolean::Boolea
 
 impl BodyRow {
     queries! {
-        foreign = action;
+        foreign = action: i64;
         
         param = body: (i64, &FramboidBody);
         
