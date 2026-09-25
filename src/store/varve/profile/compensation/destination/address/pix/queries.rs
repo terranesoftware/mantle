@@ -6,12 +6,12 @@ impl PixRow {
     queries! {
         foreign = address;
 
-        param = identifier: &str;
+        param = key: &str;
 
         table = "pixs";
 
-        names = ["identifier"];
+        names = ["key"];
 
-        binds = [identifier];
+        binds = [key];
     }
 }

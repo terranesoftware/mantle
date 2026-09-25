@@ -2,7 +2,7 @@ CREATE TABLE varves (
     id BIGSERIAL PRIMARY KEY,
 
     account TEXT NOT NULL,
-    from TIMESTAMPTZ NOT NULL
+    "from" TIMESTAMPTZ NOT NULL
 );
 
 -- Dossiers
@@ -11,10 +11,10 @@ CREATE TABLE dossiers (
     id BIGSERIAL PRIMARY KEY,
     varve BIGINT NOT NULL,
 
-    from TIMESTAMPTZ NOT NULL,
+    "from" TIMESTAMPTZ NOT NULL,
     hash BYTEA NOT NULL,
     position BIGINT NOT NULL,
-    to TIMESTAMPTZ NOT NULL,
+    "to" TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (varve) REFERENCES varves (id) ON DELETE CASCADE
 );
@@ -25,10 +25,10 @@ CREATE TABLE events (
     id BIGSERIAL PRIMARY KEY,
     dossier BIGINT NOT NULL,
 
-    from TIMESTAMPTZ NOT NULL,
+    "from" TIMESTAMPTZ NOT NULL,
     hash BYTEA NOT NULL,
     position BIGINT NOT NULL,
-    to TIMESTAMPTZ NOT NULL,
+    "to" TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (dossier) REFERENCES dossiers (id) ON DELETE CASCADE
 );
@@ -295,7 +295,7 @@ CREATE TABLE pixs (
     id BIGSERIAL PRIMARY KEY,
     address BIGINT NOT NULL,
 
-    identifier TEXT NOT NULL,
+    "key" TEXT NOT NULL,
 
     FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
 );
