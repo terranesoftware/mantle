@@ -9,7 +9,7 @@ async fn main() -> Result<()> {
     let port = var("PORT").unwrap_or("8000".to_string());
     let listener = TcpListener::bind(format!("{}:{}", host, port)).await?;
 
-    let network = Router::new();
+    let mantle = Router::new();
 
-    serve(listener, network).await
+    serve(listener, mantle).await
 }
