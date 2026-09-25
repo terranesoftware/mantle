@@ -1,8 +1,58 @@
+-- Accounts
+CREATE TABLE accounts (
+    id BIGSERIAL PRIMARY KEY,
+
+    account TEXT NOT NULL
+);
+
+-- Sources
+CREATE TABLE sources (
+    id BIGSERIAL PRIMARY KEY,
+
+    source TEXT NOT NULL
+);
+
+-- Organizations
+-- Schema
+CREATE SCHEMA organization;
+
+-- Table
+CREATE TABLE organizations (
+    id BIGSERIAL PRIMARY KEY,
+
+    organization TEXT NOT NULL
+);
+
+-- Sources
+CREATE TABLE organization.sources (
+    id BIGSERIAL PRIMARY KEY,
+    organization BIGINT NOT NULL,
+
+    source BIGINT NOT NULL,
+
+    FOREIGN KEY (organization) REFERENCES organizations (id) ON DELETE CASCADE,
+    FOREIGN KEY (source) REFERENCES sources (id)
+);
+
+-- Mutations
+CREATE TABLE mutations (
+    id BIGSERIAL PRIMARY KEY,
+    organization BIGINT NOT NULL,
+
+    mutation BIGINT NOT NULL,
+
+    FOREIGN KEY (organization) REFERENCES organizations (id) ON DELETE CASCADE,
+    FOREIGN KEY (mutation) REFERENCES accounts (id)
+);
+
+-- Varves
 CREATE TABLE varves (
     id BIGSERIAL PRIMARY KEY,
 
-    account TEXT NOT NULL,
-    "from" TIMESTAMPTZ NOT NULL
+    account BIGINT NOT NULL,
+    "from" TIMESTAMPTZ NOT NULL,
+
+    FOREIGN KEY (account) REFERENCES accounts (id)
 );
 
 -- Dossiers
@@ -42,10 +92,11 @@ CREATE TABLE actions (
     hash BYTEA NOT NULL,
     name TEXT NOT NULL,
     position BIGINT NOT NULL,
-    source TEXT NOT NULL,
+    source BIGINT NOT NULL,
     time TIMESTAMPTZ NOT NULL,
 
-    FOREIGN KEY (event) REFERENCES events (id) ON DELETE CASCADE
+    FOREIGN KEY (event) REFERENCES events (id) ON DELETE CASCADE,
+    FOREIGN KEY (source) REFERENCES sources (id)
 );
 
 -- Bodies
