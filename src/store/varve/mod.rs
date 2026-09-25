@@ -9,18 +9,13 @@ use time::OffsetDateTime;
 #[derive(FromRow)]
 pub struct VarveRow {
     id: i64,
+    account: i64,
     
-    account: String,
     from: OffsetDateTime
 }
 
 impl VarveRow {
-    keys!();
-
-    /// Returns a copy of the contained account key.
-    pub fn account(&self) -> &str {
-        &self.account
-    }
+    keys!(account: i64);
 
     /// Returns a copy of the contained from datetime.
     pub fn from(&self) -> OffsetDateTime {

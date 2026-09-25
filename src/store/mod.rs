@@ -1,5 +1,5 @@
 macro_rules! keys {
-    ($($name:ident: $type:ty)?) => {
+    ($($name:ident: $type:ty),*) => {
         /// Returns a copy of the contained primary key.
         pub fn id(&self) -> i64 {
             self.id
@@ -10,7 +10,7 @@ macro_rules! keys {
             pub fn $name(&self) -> $type {
                 self.$name
             }
-        )?
+        )*
         
     };
 }

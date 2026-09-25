@@ -9,16 +9,16 @@ use time::OffsetDateTime;
 pub struct ActionRow {
     id: i64,
     event: i64,
+    source: i64,
 
     hash: Vec<u8>,
     name: String,
     position: i64,
-    source: String,
     time: OffsetDateTime
 }
 
 impl ActionRow {
-    keys!(event: i64);
+    keys!(event: i64, source: i64);
 
     /// Returns a reference to the contained hash.
     pub fn hash(&self) -> &[u8] {
@@ -33,11 +33,6 @@ impl ActionRow {
     /// Returns a copy of the contained position.
     pub fn position(&self) -> i64 {
         self.position
-    }
-
-    /// Returns a reference to the contained source.
-    pub fn source(&self) -> &str {
-        &self.source
     }
 
     /// Returns a copy of the contained datetime.

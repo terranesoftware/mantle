@@ -1,3 +1,14 @@
+-- Organizations
+-- Schema
+CREATE SCHEMA organization;
+
+-- Table
+CREATE TABLE organizations (
+    id BIGSERIAL PRIMARY KEY,
+
+    organization TEXT NOT NULL
+);
+
 -- Accounts
 CREATE TABLE accounts (
     id BIGSERIAL PRIMARY KEY,
@@ -13,17 +24,6 @@ CREATE TABLE sources (
     id BIGSERIAL PRIMARY KEY,
 
     source TEXT NOT NULL
-);
-
--- Organizations
--- Schema
-CREATE SCHEMA organization;
-
--- Table
-CREATE TABLE organizations (
-    id BIGSERIAL PRIMARY KEY,
-
-    organization TEXT NOT NULL
 );
 
 -- Sources
@@ -51,8 +51,8 @@ CREATE TABLE mutations (
 -- Varves
 CREATE TABLE varves (
     id BIGSERIAL PRIMARY KEY,
-
     account BIGINT NOT NULL,
+
     "from" TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (account) REFERENCES accounts (id)
@@ -91,11 +91,11 @@ CREATE TABLE events (
 CREATE TABLE actions (
     id BIGSERIAL PRIMARY KEY,
     event BIGINT NOT NULL,
+    source BIGINT NOT NULL,
 
     hash BYTEA NOT NULL,
     name TEXT NOT NULL,
     position BIGINT NOT NULL,
-    source BIGINT NOT NULL,
     time TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (event) REFERENCES events (id) ON DELETE CASCADE,
@@ -222,8 +222,8 @@ CREATE TYPE location AS (
 );
 
 CREATE TYPE period AS (
-    start DATE NOT NULL,
-    end DATE
+    start DATE,
+    "end" DATE
 );
 
 -- Table
@@ -247,13 +247,13 @@ CREATE TABLE authorizations (
 -- Table
 CREATE TABLE documents (
     id BIGSERIAL PRIMARY KEY,
-    authorization BIGINT NOT NULL,
+    "authorization" BIGINT NOT NULL,
 
     name TEXT NOT NULL,
     number TEXT,
     validity DATERANGE,
 
-    FOREIGN KEY (authorization) REFERENCES authorizations (id) ON DELETE CASCADE
+    FOREIGN KEY ("authorization") REFERENCES authorizations (id) ON DELETE CASCADE
 );
 
 -- Issuers
@@ -331,7 +331,7 @@ CREATE TABLE achs (
     kind ACCOUNT_KIND NOT NULL,
     routing TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
+    FOREIGN KEY (address) REFERENCES destination.addresses (id) ON DELETE CASCADE
 );
 
 -- IBANs
@@ -341,7 +341,7 @@ CREATE TABLE ibans (
 
     iban TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
+    FOREIGN KEY (address) REFERENCES destination.addresses (id) ON DELETE CASCADE
 );
 
 -- PIXs
@@ -351,7 +351,7 @@ CREATE TABLE pixs (
 
     "key" TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
+    FOREIGN KEY (address) REFERENCES destination.addresses (id) ON DELETE CASCADE
 );
 
 -- UPIs
@@ -361,7 +361,7 @@ CREATE TABLE upis (
 
     vpa TEXT NOT NULL,
 
-    FOREIGN KEY (address) REFERENCES addresses (id) ON DELETE CASCADE
+    FOREIGN KEY (address) REFERENCES destination.addresses (id) ON DELETE CASCADE
 );
 
 -- Registrations
@@ -476,7 +476,7 @@ CREATE TABLE identity.addresses (
 -- Names
 -- Types
 CREATE TYPE identifiers AS (
-    primary TEXT,
+    "primary" TEXT,
     secondary TEXT
 );
 

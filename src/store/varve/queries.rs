@@ -13,7 +13,7 @@ impl VarveRow {
         names = ["account", "from"];
 
         setup = account: async |pool| -> Result<i64, Error> {
-            AccountRow::select_query_scalar(pool, "id", &format!("WHERE account = {}", varve.account().key())).await
+            AccountRow::select_query_scalar(pool, "id", &format!("WHERE account = '{}'", varve.account().key())).await
         };
 
         binds = [account, varve.from().to_offset(UtcOffset::UTC)];

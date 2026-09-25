@@ -13,17 +13,17 @@ impl ActionRow {
         
         table = "actions";
         
-        names = ["hash", "name", "position", "source", "time"];
+        names = ["source", "hash", "name", "position", "time"];
 
         setup = source: async |pool| -> Result<i64, Error> {
-            SourceRow::select_query_scalar(pool, "id", &format!("WHERE source = {}", action.2.source().key())).await
+            SourceRow::select_query_scalar(pool, "id", &format!("WHERE source = '{}'", action.2.source().key())).await
         };
         
         binds = [
+            source,
             action.1.as_bytes(),
             action.2.name(),
             action.0 as i64,
-            source,
             action.2.time().to_offset(UtcOffset::UTC)
         ];
 
