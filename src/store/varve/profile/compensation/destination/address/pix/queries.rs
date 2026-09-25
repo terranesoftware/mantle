@@ -1,4 +1,4 @@
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 use crate::store::varve::profile::compensation::destination::address::pix::PixRow;
 

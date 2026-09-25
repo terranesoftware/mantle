@@ -1,5 +1,5 @@
 use framboid::addressing::body::{Body as FramboidBody, BodyKind as FramboidBodyKind};
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 use crate::store::varve::dossier::event::action::body::{BodyRow, boolean::BooleanRow, handle::HandleRow, integer::IntegerRow, kind::Body, list::ListRow, map::MapRow, text::TextRow};
 

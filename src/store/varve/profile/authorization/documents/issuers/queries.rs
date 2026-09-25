@@ -1,6 +1,6 @@
 use crate::store::varve::profile::{authorization::documents::issuers::IssuerRow, location::Location};
 use framboid::account::profile::authorization::document::issuer::Issuer;
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 impl IssuerRow {
     queries! {

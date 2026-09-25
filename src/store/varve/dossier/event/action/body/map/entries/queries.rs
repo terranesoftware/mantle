@@ -1,5 +1,5 @@
 use crate::store::varve::dossier::event::action::body::map::entries::EntryRow;
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 impl EntryRow {
     queries! {

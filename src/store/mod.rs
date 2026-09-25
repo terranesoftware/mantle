@@ -24,6 +24,8 @@ macro_rules! queries {
         $(param = $param_ident:ident: $param_ty:ty;)?
         
         table = $table:literal;
+        
+        $(setup = $resolved:ident: $setup:expr;)?
 
         binds = [$($bind:expr),*];
 
@@ -38,6 +40,8 @@ macro_rules! queries {
             let mut builder: QueryBuilder<Postgres> = QueryBuilder::new(concat!("INSERT INTO ", $table, " VALUES (DEFAULT, "));
             let mut binds = builder.separated(", ");
             $(binds.push_bind($foreign_ident);)?
+
+            $(let $resolved = ($setup)(pool).await?;)?
             $(binds.push_bind($bind);)*
             builder.push(") RETURNING *");
 
@@ -75,12 +79,50 @@ macro_rules! queries {
         table = $table:literal;
     ) =>
     {
-        pub async fn select(
+        pub async fn select<T>(
             pool: &PgPool,
-            id: i64
+            projection: &str,
+            clauses: &str
         ) -> Result<Self, Error> {
-            query_as(concat!("SELECT * FROM ", $table, " WHERE id = $1"))
-                .bind(id)
+            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new("SELECT ");
+            builder.push(projection);
+            builder.push(concat!(" FROM ", $table, " "));
+            builder.push(clauses);
+            
+            builder.build_query_as()
+                .fetch_one(pool)
+                .await
+        }
+
+        pub async fn select_query(
+            pool: &PgPool,
+            projection: &str,
+            clauses: &str
+        ) -> Result<PgRow, Error> {
+            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new("SELECT ");
+            builder.push(projection);
+            builder.push(concat!(" FROM ", $table, " "));
+            builder.push(clauses);
+            
+            builder.build()
+                .fetch_one(pool)
+                .await
+        }
+
+        pub async fn select_query_scalar<T>(
+            pool: &PgPool,
+            projection: &str,
+            clauses: &str
+        ) -> Result<T, Error>
+        where
+            T: for<'r> Decode<'r, Postgres> + Unpin + Send + Type<Postgres>
+        {
+            let mut builder: QueryBuilder<Postgres> = QueryBuilder::new("SELECT ");
+            builder.push(projection);
+            builder.push(concat!(" FROM ", $table, " "));
+            builder.push(clauses);
+            
+            builder.build_query_scalar()
                 .fetch_one(pool)
                 .await
         }
@@ -96,6 +138,8 @@ macro_rules! queries {
         table = $table:literal;
 
         names = [$($name:literal),*];
+
+        $(setup = $resolved:ident: $setup:expr;)?
 
         binds = [$($bind:expr),*];
     ) =>
@@ -122,6 +166,8 @@ macro_rules! queries {
                 binds.push_bind($foreign_ident);
                 binds.push(concat!(stringify!($foreign_ident), ")"));
             )?
+            
+            $(let $resolved = ($setup)(pool).await?;)?
             $(binds.push_bind($bind);)*
             builder.push(") WHERE id = ");
             builder.push_bind(id);
@@ -143,6 +189,8 @@ macro_rules! queries {
 
         names = [$($name:literal),*];
 
+        $(setup = $resolved:ident: $setup:expr;)?
+
         binds = [$($bind:expr),*];
 
         $(recurse = $recurse:expr;)?
@@ -156,6 +204,8 @@ macro_rules! queries {
             $(param = $param_ident: $param_ty;)?
             
             table = $table;
+
+            $(setup = $resolved: $setup;)?
     
             binds = [$($bind),*];
     
@@ -184,6 +234,8 @@ macro_rules! queries {
             table = $table;
     
             names = [$($name),*];
+            
+            $(setup = $resolved: $setup;)?
     
             binds = [$($bind),*];
         }

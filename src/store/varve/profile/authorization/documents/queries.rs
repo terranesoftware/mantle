@@ -1,7 +1,7 @@
 use std::ops::Range;
 
 use framboid::account::profile::authorization::document::Document;
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, postgres::types::PgRange, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::{PgRow, types::PgRange}, query_as, Type};
 
 use crate::store::varve::profile::authorization::documents::{DocumentRow, issuers::IssuerRow};
 

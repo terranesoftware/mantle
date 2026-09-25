@@ -1,6 +1,6 @@
 use blake3::Hash;
 use framboid::account::dossier::Dossier;
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 use time::UtcOffset;
 
 use crate::store::varve::dossier::{DossierRow, event::EventRow};

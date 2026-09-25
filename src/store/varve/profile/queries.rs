@@ -1,6 +1,6 @@
 use crate::store::varve::profile::{ProfileRow, authorization::AuthorizationRow, compensation::CompensationRow, credential::CredentialRow, engagement::EngagementRow, identity::IdentityRow};
 use framboid::account::profile::Profile;
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 impl ProfileRow {
     queries! {

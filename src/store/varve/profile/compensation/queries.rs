@@ -1,6 +1,6 @@
 use crate::store::varve::profile::compensation::{CompensationRow, destination::DestinationRow, registration::RegistrationRow};
 use framboid::account::profile::compensation::Compensation;
-use sqlx::{Error, PgPool, Postgres, QueryBuilder, query_as};
+use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 impl CompensationRow {
     queries! {
