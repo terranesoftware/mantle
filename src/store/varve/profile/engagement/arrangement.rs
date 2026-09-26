@@ -1,4 +1,4 @@
-use framboid::account::profile::engagement::arrangement::{Arrangement as FramboidArrangement, ArrangementKind as FramboidArrangementKind};
+use framboid::account::profile::engagement::arrangement::{Arrangement as FramboidArrangement, kind::ArrangementKind as FramboidArrangementKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]

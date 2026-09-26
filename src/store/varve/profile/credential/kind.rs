@@ -1,4 +1,4 @@
-use framboid::account::profile::credentials::{Credential as FramboidCredential, CredentialKind as FramboidCredentialKind};
+use framboid::account::profile::credentials::{Credential as FramboidCredential, kind::CredentialKind as FramboidCredentialKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]

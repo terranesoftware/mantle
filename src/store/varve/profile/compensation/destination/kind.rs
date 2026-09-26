@@ -1,4 +1,4 @@
-use framboid::account::profile::compensation::destination::{Destination as FramboidDestination, DestinationKind as FramboidDestinationKind};
+use framboid::account::profile::compensation::destination::{Destination as FramboidDestination, kind::DestinationKind as FramboidDestinationKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]

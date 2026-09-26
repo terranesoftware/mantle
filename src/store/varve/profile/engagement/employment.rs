@@ -1,4 +1,4 @@
-use framboid::account::profile::engagement::employment::{Employment as FramboidEmployment, EmploymentKind as FramboidEmploymentKind};
+use framboid::account::profile::engagement::employment::{Employment as FramboidEmployment, kind::EmploymentKind as FramboidEmploymentKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]

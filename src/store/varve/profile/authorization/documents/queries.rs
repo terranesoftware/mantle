@@ -1,5 +1,3 @@
-use std::ops::Range;
-
 use framboid::account::profile::authorization::document::Document;
 use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::{PgRow, types::PgRange}, query_as, Type};
 
@@ -18,7 +16,7 @@ impl DocumentRow {
         binds = [
             document.name(),
             document.number(),
-            document.validity().map(Range::from).map(PgRange::from)
+            document.validity().map(|range| PgRange::from(range.clone()))
         ];
 
         recurse = async |pool, row: &Self| {

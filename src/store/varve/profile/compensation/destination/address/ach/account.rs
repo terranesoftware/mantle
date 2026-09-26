@@ -1,4 +1,4 @@
-use framboid::account::profile::compensation::destination::address::account::{Account as FramboidAccount, AccountKind as FramboidAccountKind};
+use framboid::account::profile::compensation::destination::address::account::{Account as FramboidAccount, kind::AccountKind as FramboidAccountKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]

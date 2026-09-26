@@ -1,4 +1,4 @@
-use framboid::account::profile::identity::name::usage::{Usage as FramboidUsage, UsageKind as FramboidUsageKind};
+use framboid::account::profile::identity::name::usage::{Usage as FramboidUsage, kind::UsageKind as FramboidUsageKind};
 use sqlx::prelude::Type;
 
 #[derive(Clone, Copy, Type)]

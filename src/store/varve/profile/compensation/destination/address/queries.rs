@@ -1,4 +1,4 @@
-use framboid::account::profile::compensation::destination::address::{Address as FramboidAddress, AddressKind as FramboidAddressKind};
+use framboid::account::profile::compensation::destination::address::{Address as FramboidAddress, kind::AddressKind as FramboidAddressKind};
 use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 use crate::store::varve::profile::compensation::destination::address::{AddressRow, ach::AchRow, iban::IbanRow, kind::Address, pix::PixRow, upi::UpiRow};

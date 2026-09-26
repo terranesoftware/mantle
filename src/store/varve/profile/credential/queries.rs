@@ -1,4 +1,4 @@
-use framboid::account::profile::credentials::{Credential as FramboidCredential, CredentialKind as FramboidCredentialKind};
+use framboid::account::profile::credentials::{Credential as FramboidCredential, kind::CredentialKind as FramboidCredentialKind};
 use sqlx::{Decode, Error, PgPool, Postgres, QueryBuilder, postgres::PgRow, query_as, Type};
 
 use crate::store::varve::profile::credential::{CredentialRow, education::EducationRow, kind::Credential};
