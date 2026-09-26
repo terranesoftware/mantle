@@ -3,10 +3,11 @@ pub mod resolve;
 pub mod start;
 
 use axum::{Router, routing::{get, post}};
+use sqlx::PgPool;
 
 use crate::api::namespace::affiliation::{end::end, resolve::resolve, start::start};
 
-pub fn affiliation() -> Router {
+pub fn affiliation() -> Router<PgPool> {
     Router::new()
         .route("/end", post(end))
         .route("/resolve", get(resolve))

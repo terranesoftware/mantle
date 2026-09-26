@@ -1,6 +1,7 @@
 use axum::{Router, extract::Path, routing::{get, post}};
+use sqlx::PgPool;
 
-pub fn organization() -> Router {
+pub fn organization() -> Router<PgPool> {
     Router::new()
         .route("/", get(me))
         .route("/{name}", post(new))
