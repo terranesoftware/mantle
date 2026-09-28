@@ -2,7 +2,7 @@ pub mod authentication;
 pub mod authority;
 pub mod error;
 pub mod namespace;
-pub mod utils;
+pub mod utilities;
 pub mod varve;
 
 use axum::Router;
