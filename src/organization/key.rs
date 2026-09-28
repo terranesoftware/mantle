@@ -1,6 +1,7 @@
 use framboid::keys::Key;
 
 /// An organization identifier.
+#[derive(Clone)]
 pub struct OrganizationKey(String);
 
 impl Key for OrganizationKey {

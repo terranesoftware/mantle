@@ -5,10 +5,10 @@ pub mod namespace;
 pub mod utilities;
 pub mod varve;
 
-use axum::Router;
+use axum::{Router, middleware::from_fn};
 use sqlx::PgPool;
 
-use crate::api::{authentication::authentication, authority::authority, namespace::namespace, varve::varve};
+use crate::api::{authentication::authentication, authority::authority, namespace::namespace, utilities::principal::principal, varve::varve};
 
 pub fn router() -> Router<PgPool> {
     Router::new()
@@ -16,4 +16,5 @@ pub fn router() -> Router<PgPool> {
         .nest("/authority", authority())
         .nest("/namespace", namespace())
         .nest("/varve", varve())
+        .layer(from_fn(principal))
 }
