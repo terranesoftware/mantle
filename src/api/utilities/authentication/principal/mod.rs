@@ -23,7 +23,8 @@ impl Principal {
 
 impl<S> FromRequestParts<S> for Principal
 where
-    S: Send + Sync {
+    S: Send + Sync
+{
     type Rejection = StatusCode;
     
     async fn from_request_parts(

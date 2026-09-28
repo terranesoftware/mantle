@@ -6,11 +6,11 @@ pub mod source;
 use axum::{Router, routing::get};
 use sqlx::PgPool;
 
-use crate::api::namespace::{affiliation::resolve::resolve, key::{account::account, organization::organization, source::source}};
+use crate::api::namespace::key::{account::{me::me, new::new}, organization::organization, resolve::resolve, source::source};
 
 pub fn key() -> Router<PgPool> {
     Router::new()
-        .nest("/account", account())
+        .route("/account", get(me).post(new))
         .nest("/organization", organization())
         .route("resolve/{key}", get(resolve))
         .nest("/source", source())

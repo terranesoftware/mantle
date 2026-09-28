@@ -8,7 +8,7 @@ pub mod varve;
 use axum::{Router, middleware::from_fn};
 use sqlx::PgPool;
 
-use crate::api::{authentication::authentication, authority::authority, namespace::namespace, utilities::principal::handler::principal, varve::varve};
+use crate::api::{authentication::authentication, authority::authority, namespace::namespace, utilities::authentication::principal::handler::principal, varve::varve};
 
 pub fn router() -> Router<PgPool> {
     Router::new()

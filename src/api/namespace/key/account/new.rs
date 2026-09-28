@@ -1,5 +1,18 @@
-use axum::extract::Path;
+use axum::{extract::State, http::StatusCode, response::{IntoResponse, Response}};
+use framboid::keys::{Key, account::AccountKey};
+use sqlx::PgPool;
 
-pub async fn new(Path(name): Path<String>) {
-    
+use crate::{api::{error::MantleError, utilities::{authentication::anonymous::Anonymous, bitcode::Bitcode}}, store::account::AccountRow};
+
+// This needs account creation through usernames/passwords or whatever
+pub async fn new(
+    _: Anonymous,
+    Bitcode(account): Bitcode<AccountKey>,
+    State(pool): State<PgPool>
+) -> Result<Response, MantleError> {
+    AccountRow::insert(&pool, None, &account).await?;
+
+    Ok(
+        (StatusCode::OK, format!("Key {} claimed", account.key())).into_response()
+    )
 }
