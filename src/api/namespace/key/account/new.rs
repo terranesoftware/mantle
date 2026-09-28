@@ -7,8 +7,8 @@ use crate::{api::{error::MantleError, utilities::{authentication::anonymous::Ano
 // This needs account creation through usernames/passwords or whatever
 pub async fn new(
     _: Anonymous,
-    Bitcode(account): Bitcode<AccountKey>,
-    State(pool): State<PgPool>
+    State(pool): State<PgPool>,
+    Bitcode(account): Bitcode<AccountKey>
 ) -> Result<Response, MantleError> {
     AccountRow::insert(&pool, None, &account).await?;
 
