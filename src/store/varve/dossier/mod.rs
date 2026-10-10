@@ -10,18 +10,18 @@ pub struct DossierRow {
     id: i64,
     varve: i64,
 
-    from: OffsetDateTime,
+    since: OffsetDateTime,
     hash: Vec<u8>,
     position: i64,
-    to: OffsetDateTime
+    until: OffsetDateTime
 }
 
 impl DossierRow {
     keys!(varve: i64);
 
-    /// Returns a copy of the contained from datetime.
-    pub fn from(&self) -> OffsetDateTime {
-        self.from
+    /// Returns a copy of the contained since datetime.
+    pub fn since(&self) -> OffsetDateTime {
+        self.since
     }
 
     /// Returns a reference to the contained hash.
@@ -35,7 +35,7 @@ impl DossierRow {
     }
 
     /// Returns a copy of the contained to datetime.
-    pub fn to(&self) -> OffsetDateTime {
-        self.to
+    pub fn until(&self) -> OffsetDateTime {
+        self.until
     }
 }

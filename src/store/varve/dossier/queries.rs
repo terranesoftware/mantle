@@ -13,13 +13,13 @@ impl DossierRow {
         
         table = "dossiers";
         
-        names = ["from", "hash", "position", "to"];
+        names = ["since", "hash", "position", "to"];
 
         binds = [
-            dossier.2.from().to_offset(UtcOffset::UTC),
+            dossier.2.since().to_offset(UtcOffset::UTC),
             dossier.1.as_bytes(),
             dossier.0 as i64,
-            dossier.2.to().to_offset(UtcOffset::UTC)
+            dossier.2.until().to_offset(UtcOffset::UTC)
         ];
 
         recurse = async |pool, row: &Self| -> Result<(), Error> {

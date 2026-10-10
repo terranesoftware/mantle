@@ -53,7 +53,7 @@ CREATE TABLE varves (
     id BIGSERIAL PRIMARY KEY,
     account BIGINT NOT NULL,
 
-    "from" TIMESTAMPTZ NOT NULL,
+    since TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (account) REFERENCES accounts (id)
 );
@@ -64,10 +64,10 @@ CREATE TABLE dossiers (
     id BIGSERIAL PRIMARY KEY,
     varve BIGINT NOT NULL,
 
-    "from" TIMESTAMPTZ NOT NULL,
+    since TIMESTAMPTZ NOT NULL,
     hash BYTEA NOT NULL,
     position BIGINT NOT NULL,
-    "to" TIMESTAMPTZ NOT NULL,
+    until TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (varve) REFERENCES varves (id) ON DELETE CASCADE
 );
@@ -78,10 +78,10 @@ CREATE TABLE events (
     id BIGSERIAL PRIMARY KEY,
     dossier BIGINT NOT NULL,
 
-    "from" TIMESTAMPTZ NOT NULL,
+    since TIMESTAMPTZ NOT NULL,
     hash BYTEA NOT NULL,
     position BIGINT NOT NULL,
-    "to" TIMESTAMPTZ NOT NULL,
+    until TIMESTAMPTZ NOT NULL,
 
     FOREIGN KEY (dossier) REFERENCES dossiers (id) ON DELETE CASCADE
 );

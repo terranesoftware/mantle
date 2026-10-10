@@ -11,14 +11,14 @@ pub struct VarveRow {
     id: i64,
     account: i64,
     
-    from: OffsetDateTime
+    since: OffsetDateTime
 }
 
 impl VarveRow {
     keys!(account: i64);
 
-    /// Returns a copy of the contained from datetime.
-    pub fn from(&self) -> OffsetDateTime {
-        self.from
+    /// Returns a copy of the contained since datetime.
+    pub fn since(&self) -> OffsetDateTime {
+        self.since
     }
 }

@@ -10,18 +10,18 @@ pub struct EventRow {
     id: i64,
     dossier: i64,
 
-    from: OffsetDateTime,
+    since: OffsetDateTime,
     hash: Vec<u8>,
     position: i64,
-    to: OffsetDateTime
+    until: OffsetDateTime
 }
 
 impl EventRow {
     keys!(dossier: i64);
 
-    /// Returns a copy of the contained from datetime.
-    pub fn from(&self) -> OffsetDateTime {
-        self.from
+    /// Returns a copy of the contained since datetime.
+    pub fn since(&self) -> OffsetDateTime {
+        self.since
     }
 
     /// Returns a reference to the contained hash.
@@ -35,7 +35,7 @@ impl EventRow {
     }
 
     /// Returns a copy of the contained to datetime.
-    pub fn to(&self) -> OffsetDateTime {
-        self.to
+    pub fn until(&self) -> OffsetDateTime {
+        self.until
     }
 }

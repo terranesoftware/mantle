@@ -10,13 +10,13 @@ impl VarveRow {
 
         table = "varves";
 
-        names = ["account", "from"];
+        names = ["account", "since"];
 
         setup = account: async |pool| -> Result<i64, Error> {
             AccountRow::select_query_scalar(pool, "id", &format!("WHERE account = '{}'", varve.account().key())).await
         };
 
-        binds = [account, varve.from().to_offset(UtcOffset::UTC)];
+        binds = [account, varve.since().to_offset(UtcOffset::UTC)];
 
         recurse = async |pool, row: &Self| -> Result<(), Error> {
             for (index, dossier) in varve.dossiers().iter().enumerate() {
